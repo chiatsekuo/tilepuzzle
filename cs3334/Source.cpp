@@ -31,7 +31,7 @@ int main() {
 			done = true;
 		}
 		else if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-			cout << "mouse at " << event.mouse.x << endl;
+			cout << "mouse at " << event.mouse.x << ", " << event.mouse.y << endl;
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
 
