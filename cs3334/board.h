@@ -1,9 +1,7 @@
 #pragma once
 #define boardwidth 3
 #define boardheight 3
-#include "tile.h"
-#include <iostream>
-using namespace std;
+#include "tile.h"//don't include iostream
 
 class board
 {
@@ -30,4 +28,7 @@ private:
 	tile tiles[boardheight][boardwidth];
 
 };
+
+
+
 

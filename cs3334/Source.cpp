@@ -35,6 +35,9 @@ int main() {
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
 
+
+			al_clear_to_color(al_map_rgb(0,0,0));
+			al_flip_display();
 		}
 
 	}
