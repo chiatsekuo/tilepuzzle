@@ -12,10 +12,12 @@ public:
 	tile * getTile(int x,int y);
 	bool movetile(int x, int y,char dir);//should use bellow
 	bool moveup(int x, int y);//should check for empty
-	bool movedown(int x, int y);
+	bool movedown(int x, int y);//return true if good
 	bool moveleft(int x, int y);
 	bool moveright(int x, int y);
 
+
+	int alltiles(tile ** t,int n);//fill the list with tile pointers &tiles[][]
 	int realx(tile * t);
 	int realy(tile * t);
 	int samerow(tile * t, tile[boardwidth]);
