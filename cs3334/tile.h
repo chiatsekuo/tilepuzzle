@@ -10,6 +10,10 @@ public:
 	tile();
 	tile(int);
 	bool isempty();
+	//getters and setters
+	//add width and height in defilne ^
+	bool isinside(int x, int y);// true if point is in side
+
 
 private:
 	int value;
