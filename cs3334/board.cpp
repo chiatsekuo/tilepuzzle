@@ -19,6 +19,15 @@ board::board(int x, int y)
 	}
 }
 
+board::board(board * from)
+{
+	for (int y = 0; y < boardheight; y++) {
+		for (int x = 0; x < boardwidth; x++) {
+			tiles[y][x] = from->tiles[y][x].getvalue();
+		}
+	}
+}
+
 void board::swap(int x1, int y1, int x2, int y2)
 {
 	tile temp=tiles[y1][x1];
