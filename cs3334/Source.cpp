@@ -77,6 +77,7 @@ int main() {
 					int yclicked = game.boardy(tilelist[i]);
 					char dir = game.possibledir(xclicked,yclicked);
 					game.movetile(xclicked, yclicked, dir);
+					break;
 				}
 			}
 
