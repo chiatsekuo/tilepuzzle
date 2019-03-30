@@ -232,25 +232,9 @@ int oneBlankGame::numOfMoves()
 bool oneBlankGame::doMove(int i)
 {
 	this->setEmpty();
-	if (isInboard(empty - 1, emptx)) {
-		if (i == 0) {
-			return movetile(emptx, empty, 'u');
-		}
-		else {
-			i--;
-		}
-	}
-	if (isInboard(empty, emptx + 1)) {
-		if (i == 0) {
-			return movetile(emptx, empty, 'r');
-		}
-		else {
-			i--;
-		}
-	}
 	if (isInboard(empty + 1, emptx)) {
 		if (i == 0) {
-			return movetile(emptx, empty, 'd');
+			return movetile(emptx, empty+1, 'u');
 		}
 		else {
 			i--;
@@ -258,7 +242,23 @@ bool oneBlankGame::doMove(int i)
 	}
 	if (isInboard(empty, emptx - 1)) {
 		if (i == 0) {
-			return movetile(emptx, empty, 'l');
+			return movetile(emptx-1, empty, 'r');
+		}
+		else {
+			i--;
+		}
+	}
+	if (isInboard(empty - 1, emptx)) {
+		if (i == 0) {
+			return movetile(emptx, empty-1, 'd');
+		}
+		else {
+			i--;
+		}
+	}
+	if (isInboard(empty, emptx+1)) {
+		if (i == 0) {
+			return movetile(emptx+1, empty, 'l');
 		}
 		else {
 			i--;
