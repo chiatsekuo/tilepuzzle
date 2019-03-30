@@ -40,11 +40,12 @@ bool board::movetile(int x, int y, char dir)
 
 bool board::moveup(int x, int y)
 {
-	if (tiles[y][x].getvalue()!=0 && y - 1 >= 0) {
-		swap(x, y, x, y - 1);
+	if (tiles[y][x].getvalue()==0) {
 		return true;
 	}
-	return false;
+	else {
+		return false;
+	}
 }
 
 bool board::movedown(int x, int y)
@@ -54,20 +55,12 @@ bool board::movedown(int x, int y)
 
 bool board::moveleft(int x, int y)
 {
-	if (tiles[x - 1][y] == 0 && x - 1 >= 0) {
-		swap(x, y, x - 1, y);
-		return true;
-	}
-	return false;
+	
 }
 
 bool board::moveright(int x, int y)
 {
-	if (tiles[y][x + 1] == 0 && x + 1 <= width) {
-		swap(x, y, x+1, y);
-		return true;
-	}
-	return false;
+	
 }
 
 char * board::toString()
