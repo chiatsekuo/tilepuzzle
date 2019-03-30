@@ -43,6 +43,11 @@ int tile::geth()
 	return height;
 }
 
+int tile::getvalue()
+{
+	return value;
+}
+
 bool tile::isinside(int x, int y)
 {
 	if (x > this->x&&x < this->x + this->getw()) {
