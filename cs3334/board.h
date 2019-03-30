@@ -25,6 +25,8 @@ public:
 	void initalizePosition();
 	void move();
 
+	int getwidth();
+	int getheight();
 
 	
 

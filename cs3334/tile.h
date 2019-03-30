@@ -3,6 +3,8 @@
 #define tileheight 100
 #define speed 10
 
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
 
 class tile {
 

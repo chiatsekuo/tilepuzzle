@@ -199,6 +199,16 @@ void board::move()
 	}
 }
 
+int board::getwidth()
+{
+	return boardwidth * tilewidth;
+}
+
+int board::getheight()
+{
+	return boardheight * tileheight;
+}
+
 char oneBlankGame::possibledir(int x, int y)
 {
 	if (tiles[y - 1][x].isempty() && y > 0) {
