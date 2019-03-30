@@ -1,19 +1,19 @@
 #pragma once
-
+#include "board.h"
 
 class bot {
 
 public:
-	bot();
+	bot(board * current);
+
+	gamestate * choices;
 
 
 };
 
-class gamestate {
-public:
+struct gamestate {
 	int movex;
 	int movey;
 	char movedir;
-
-
+	int inversions;
 };
