@@ -80,14 +80,15 @@ int board::alltiles(tile ** t, int n)
 char * board::toString()
 {
 	char * arr = new char[3*boardheight*boardwidth + 1];
-	arr = { 0 };
+	memset(arr, 0, 3 * boardheight*boardwidth + 1);
 	int index = 0;
 	for (int y = 0; y < boardheight; y++) {
 		for (int x = 0; x < boardwidth; x++) {
 			char buf[3] = { 0 };
-			_itoa(tiles[y][x].getvalue(), buf, 3);
+			_itoa_s(tiles[y][x].getvalue(), buf, 10);
 			strcat_s(arr, 3*boardheight*boardwidth + 1, buf);
 		}
+		strcat_s(arr, 3 * boardheight*boardwidth + 1, "\n");
 	}
 	return arr;
 }

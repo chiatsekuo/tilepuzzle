@@ -3,6 +3,7 @@
 tile::tile()
 {
 	isitEmpty = true;
+	value = 0;
 }
 tile::tile(int v) {
 	value = v;
