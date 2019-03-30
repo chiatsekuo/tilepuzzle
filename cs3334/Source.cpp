@@ -1,11 +1,23 @@
 #include <iostream>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_ttf.h>
 using namespace std;
+
+
+
+
+void drawtile(int x,int y,int w,int h,int v);
 
 int main() {
 
 	cout << "sliding block puzzle" << endl;
 	al_init();
+	al_init_font_addon();
+	al_init_primitives_addon();
+	al_init_ttf_addon();
+
 	ALLEGRO_DISPLAY * screen = al_create_display(500,500);
 	ALLEGRO_EVENT_QUEUE * queue;
 	ALLEGRO_TIMER * timer;
