@@ -25,6 +25,10 @@ public:
 
 	int inversions(); // return the inversion in the board
 	char* toString();
+
+	void initalizePosition();
+	void move();
+
 private:
 
 	tile tiles[boardheight][boardwidth];
