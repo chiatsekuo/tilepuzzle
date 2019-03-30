@@ -17,6 +17,10 @@ int main() {
 	board game=board();
 	game.initalizePosition();
 	cout << game.toString() << endl;
+	game.movedown(2, 1);
+	cout << game.toString() << endl;
+	game.movedown(2, 0);
+	cout << game.toString() << endl;
 	cout << "sliding block puzzle" << endl;
 	
 	if (!al_init()) {
