@@ -1,7 +1,7 @@
 #pragma once
 #define tilewidth 100
 #define tileheight 100
-#define speed 1
+#define speed 10
 
 
 class tile {
