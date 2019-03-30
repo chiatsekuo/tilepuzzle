@@ -13,13 +13,9 @@ board::board()
 
 void board::swap(int x1, int y1, int x2, int y2)
 {
-	int tempx, tempy;
-	tempx = x1;
-	x1 = x2;
-	x2 = tempx;
-	tempy = y1;
-	y1 = y2;
-	y2 = tempy;
+	tile temp=tiles[y1][x1];
+	tiles[y1][x1] = tiles[y2][x2];
+	tiles[y2][x2] = temp;
 }
 
 bool board::movetile(int x, int y, char dir)
@@ -47,22 +43,46 @@ bool board::movetile(int x, int y, char dir)
 
 bool board::moveup(int x, int y)
 {
-	return false;
+	if (y == 0 || !tiles[y-1][x].isempty()) {
+		return false;
+	}
+	else {
+		swap(x, y, x, y-1);
+		return true;
+	}
 }
 
 bool board::movedown(int x, int y)
 {
-	return false;
+	if (y == boardheight-1 || !tiles[y+1][x].isempty()) {
+		return false;
+	}
+	else {
+		swap(x, y, x, y + 1 );
+		return true;
+	}
 }
 
 bool board::moveleft(int x, int y)
 {
-	return false;
+	if (x == 0 || !tiles[y][x-1].isempty()) {
+		return false;
+	}
+	else {
+		swap(x, y, x-1, y);
+		return true;
+	}
 }
 
 bool board::moveright(int x, int y)
 {
-	return false;
+	if (x == boardwidth-1 || !tiles[y][x+1].isempty()) {
+		return false;
+	}
+	else {
+		swap(x, y, x + 1, y);
+		return true;
+	}
 }
 
 int board::alltiles(tile ** t, int n)
