@@ -64,7 +64,16 @@ int main() {
 			done = true;
 		}
 		else if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+
 			cout << "mouse at " << event.mouse.x << ", " << event.mouse.y << endl;
+			tile ** tilelist = new tile*[boardwidth*boardheight];
+
+			for (int i = 0; i < boardwidth*boardheight; i++) {
+				tilelist[i]->isinside(event.mouse.x, event.mouse.y);
+			}
+
+			delete tilelist;
+
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
 
@@ -88,7 +97,7 @@ int main() {
 			
 
 			al_flip_display();
-			//delete tilelist;
+			delete tilelist;
 		}
 
 	}
