@@ -81,7 +81,7 @@ int main() {
 				}
 			}
 
-		
+			cout << game.inversions() << endl;
 
 			delete tilelist;
 

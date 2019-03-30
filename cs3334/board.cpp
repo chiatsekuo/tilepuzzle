@@ -113,7 +113,7 @@ int board::inversions()
 			for (int k = 0; k < boardheight; k++) {
 				for (int l = 0; l < boardwidth; l++) {
 					if ((k == i && j < l) || (k > i)) {
-						if (tiles[k][l].getvalue > value) {
+						if (tiles[k][l].getvalue() > value) {
 							count++;
 						}
 					} 
