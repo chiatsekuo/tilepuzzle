@@ -234,7 +234,7 @@ bool oneBlankGame::doMove(int i)
 	this->setEmpty();
 	if (isInboard(empty - 1, emptx)) {
 		if (i == 0) {
-			movetile(emptx, empty, 'u');
+			return movetile(emptx, empty, 'u');
 		}
 		else {
 			i--;
@@ -242,7 +242,7 @@ bool oneBlankGame::doMove(int i)
 	}
 	if (isInboard(empty, emptx + 1)) {
 		if (i == 0) {
-			movetile(emptx, empty, 'r');
+			return movetile(emptx, empty, 'r');
 		}
 		else {
 			i--;
@@ -250,7 +250,7 @@ bool oneBlankGame::doMove(int i)
 	}
 	if (isInboard(empty + 1, emptx)) {
 		if (i == 0) {
-			movetile(emptx, empty, 'd');
+			return movetile(emptx, empty, 'd');
 		}
 		else {
 			i--;
@@ -258,12 +258,13 @@ bool oneBlankGame::doMove(int i)
 	}
 	if (isInboard(empty, emptx - 1)) {
 		if (i == 0) {
-			movetile(emptx, empty, 'l');
+			return movetile(emptx, empty, 'l');
 		}
 		else {
 			i--;
 		}
 	}
+	return false;
 }
 
 void oneBlankGame::setEmpty()
