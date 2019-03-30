@@ -1,11 +1,24 @@
 #include <iostream>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_ttf.h>
+#define boarderedge 20
 using namespace std;
+
+
+ALLEGRO_FONT *font;
+
+void drawtile(int x,int y,int w,int h,int v);
 
 int main() {
 
 	cout << "sliding block puzzle" << endl;
 	al_init();
+	al_init_font_addon();
+	al_init_primitives_addon();
+	al_init_ttf_addon();
+	font = al_load_ttf_font("consola.ttf", 72, 0);
 	ALLEGRO_DISPLAY * screen = al_create_display(500,500);
 	ALLEGRO_EVENT_QUEUE * queue;
 	ALLEGRO_TIMER * timer;
@@ -16,8 +29,8 @@ int main() {
 	queue = al_create_event_queue();
 	timer = al_create_timer(1.0 / 20.0);
 
-
-	
+	al_start_timer(timer);
+	al_register_event_source(queue, al_get_display_event_source(screen));
 	al_register_event_source(queue, al_get_timer_event_source(timer));
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_mouse_event_source());
@@ -36,11 +49,26 @@ int main() {
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
 
 
-			al_clear_to_color(al_map_rgb(0,0,0));
+
+			al_clear_to_color(al_map_rgb(255, 255, 255));
+			
+			drawtile(0,0,100,100,4);
 			al_flip_display();
 		}
 
 	}
 	//system("pause");
+
+}
+
+void drawtile(int x, int y, int w, int h, int v)
+{
+	x += boarderedge;
+	y += boarderedge;
+	al_draw_rectangle(x,y,x+w,y+h,al_map_rgb(0,0,0),2);
+	char text[10] = { 0 };
+	_itoa_s(v, text,10);
+	cout << text << endl;
+	al_draw_text(font, al_map_rgb(0, 0, 0), x + (w / 2) - (al_get_text_width(font,text)/2), y+w/3, ALLEGRO_ALIGN_LEFT,text);
 
 }
