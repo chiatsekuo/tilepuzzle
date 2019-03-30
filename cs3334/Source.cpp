@@ -3,6 +3,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
+#include "board.h"
 #define boarderedge 20
 using namespace std;
 
@@ -48,12 +49,13 @@ int main() {
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
 
-
-
-			al_clear_to_color(al_map_rgb(255, 255, 255));
+			tile ** tilelist = new tile *[boardwidth*boardheight];
 			
+			al_clear_to_color(al_map_rgb(255, 255, 255));
 			drawtile(0,0,100,100,4);
+
 			al_flip_display();
+			delete tilelist;
 		}
 
 	}
