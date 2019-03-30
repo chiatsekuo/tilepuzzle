@@ -58,6 +58,4 @@ bool tile::isinside(int x, int y)
 	return false;
 }
 
-tile::tile(int)
-{
-}
+
