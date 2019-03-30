@@ -8,6 +8,11 @@ tile::tile()
 tile::tile(int v) {
 	value = v;
 	isitEmpty = false;
+	image = al_create_bitmap(100, 100);
+	ALLEGRO_BITMAP * temp = al_load_bitmap("image.jpg");
+	
+	al_set_target_bitmap(image);
+	al_draw_scaled_bitmap(temp, 0, 0, al_get_bitmap_width(temp), al_get_bitmap_height(temp), 0, 0, tilewidth, tileheight, 0);
 }
 
 bool tile::isempty()
@@ -92,6 +97,11 @@ bool tile::isinside(int x, int y)
 		}
 	}
 	return false;
+}
+
+ALLEGRO_BITMAP * tile::getimage()
+{
+	return image;
 }
 
 

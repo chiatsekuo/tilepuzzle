@@ -15,12 +15,11 @@ ALLEGRO_FONT *font;
 
 void drawtile(int x,int y,int w,int h,int v);
 void drawblanktile(int x, int y, int w, int h);
+void drawtileimage(int x, int y, ALLEGRO_BITMAP* image);
 
 int main() {
 
-	oneBlankGame game= oneBlankGame(100,100);
-	cout << game.inversions() << endl;
-	game.initalizePosition();
+
 	if (!al_init()) {
 		exit(-1);
 	}
@@ -37,6 +36,10 @@ int main() {
 		exit(-1);
 	}
 
+	oneBlankGame game = oneBlankGame(100, 100);
+	al_set_target_backbuffer(screen);
+	cout << game.inversions() << endl;
+	game.initalizePosition();
 
 	font = al_load_ttf_font("consola.ttf", 72, 0);
 
@@ -108,6 +111,7 @@ int main() {
 			for (int i = 0; i < boardwidth*boardheight; i++) {
 				tile * dr = tilelist[i];
 				if (!dr->isempty()){
+					drawtileimage(dr->getx(), dr->gety(), dr->getimage());
 					drawtile(dr->getx(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
 				}
 				else {
@@ -141,4 +145,10 @@ void drawblanktile(int x, int y, int w, int h)
 	x += boarderedge;
 	y += boarderedge;
 	al_draw_rectangle(x, y, x + w, y + h, al_map_rgb(0, 0, 0), 2);
+}
+
+void drawtileimage(int x, int y, ALLEGRO_BITMAP * image)
+{
+	al_draw_bitmap(image, x, y, 0);
+
 }

@@ -26,9 +26,11 @@ public:
 	//getters and setters
 	//add width and height in defilne ^
 	bool isinside(int x, int y);// true if point is in side
+	ALLEGRO_BITMAP* getimage();
 
 
 private:
+	ALLEGRO_BITMAP * image;
 	int value;
 	int x=0;
 	int y=0;
