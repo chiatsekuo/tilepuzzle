@@ -90,12 +90,13 @@ int main() {
 		}
 		else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 			if (event.keyboard.keycode == ALLEGRO_KEY_R) {
-				int possible = game.numOfMoves();
+				for (int i = 0; i < 1000; i++) {
+					int possible = game.numOfMoves();
 
-				int choice = rand() % possible;
+					int choice = rand() % possible;
 
-				game.doMove(choice);
-				
+					game.doMove(choice);
+				}
 			}
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
