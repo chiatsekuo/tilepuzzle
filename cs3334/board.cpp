@@ -220,6 +220,11 @@ int board::numOfMoves()
 	return num;
 }
 
+void board::doMove(int i)
+{
+	
+}
+
 bool isInboard(int y, int x)
 {
 	if (y >= 0 && y <= boardheight - 1 && x >= 0 && x <= boardwidth - 1) {
