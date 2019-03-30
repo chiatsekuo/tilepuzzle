@@ -14,6 +14,7 @@ public:
 	basetile(int);
 	bool isempty();
 	int getvalue();
+	void setvalue(int v);
 private:
 	int value;
 	bool isitEmpty;
@@ -22,6 +23,7 @@ private:
 class visualtile:public basetile {
 
 public:
+	visualtile operator=(const basetile& b);
 	visualtile();
 	visualtile(int);
 	
@@ -44,10 +46,6 @@ public:
 
 private:
 	ALLEGRO_BITMAP * image;
-	
 	int x=0;
 	int y=0;
-	
-
-
 };

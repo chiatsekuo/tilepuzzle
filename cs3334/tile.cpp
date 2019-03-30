@@ -1,5 +1,15 @@
 #include "tile.h"
 
+visualtile visualtile::operator=(const basetile& b)
+{
+	visualtile end;
+	end.image = nullptr;
+	end.x = 0;
+	end.y = 0;
+
+	return end;
+}
+
 visualtile::visualtile():basetile()
 {
 }
@@ -61,6 +71,12 @@ int visualtile::geth()
 int basetile::getvalue()
 {
 	return value;
+}
+
+void basetile::setvalue(int v)
+{
+	isitEmpty = false;
+	value = v;
 }
 
 int visualtile::adjx(int v)

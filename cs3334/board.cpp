@@ -24,10 +24,12 @@ board::board(board * from)
 	for (int y = 0; y < boardheight; y++) {
 		for (int x = 0; x < boardwidth; x++) {
 			if (from->tiles[y][x].isempty()) {
-				this->tiles[y][x] = tile();
+				this->tiles[y][x] = basetile();
+			
 			}
 			else {
-				this->tiles[y][x] = tile(from->tiles[y][x].getvalue());
+				this->tiles[y][x] = basetile();
+				tiles[y][x].setvalue(from->tiles[y][x].getvalue());
 			}
 		}
 	}
@@ -249,7 +251,7 @@ int oneBlankGame::numOfMoves()
 	if (isInboard(empty - 1, emptx)) num++;
 	if (isInboard(empty, emptx + 1))num++;
 	if (isInboard(empty + 1, emptx))num++;
-	if (isInboard(empty, emptx + 1))num++;
+	if (isInboard(empty, emptx - 1))num++;
 	return num;
 }
 

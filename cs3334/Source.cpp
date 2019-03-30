@@ -103,12 +103,12 @@ int main() {
 			}
 			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
 				cout << "solve" << endl;
-				oneBlankGame test = oneBlankGame(&game);
 				bot solver = bot(&game);
-				cout << game.numOfMoves() << endl;
-				cout << game.doMove(0) << endl;
-				cout << game.toString() << endl;
-				game.initalizePosition()
+				//solver.print();
+				//if (!solver.needmove()) {
+					game.doMove(solver.findbest());
+				//}
+				cout <<  "current inversions: "<< game.inversions() << endl;
 			}
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
