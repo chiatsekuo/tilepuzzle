@@ -1,6 +1,6 @@
 #pragma once
-#define width 3
-#define height 3
+#define width 20
+#define height 20
 
 
 
@@ -10,6 +10,13 @@ public:
 	tile();
 	tile(int);
 	bool isempty();
+	int getx();
+	void setx(int v);
+	int gety();
+	void sety(int v);
+	int getw();
+	int geth();
+	int getvalue();
 	//getters and setters
 	//add width and height in defilne ^
 	bool isinside(int x, int y);// true if point is in side
@@ -17,8 +24,8 @@ public:
 
 private:
 	int value;
-	int x;
-	int y;
+	int x=0;
+	int y=0;
 	bool isitEmpty;
 
 
