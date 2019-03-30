@@ -69,8 +69,15 @@ int main() {
 			tile ** tilelist = new tile*[boardwidth*boardheight];
 
 			for (int i = 0; i < boardwidth*boardheight; i++) {
-				tilelist[i]->isinside(event.mouse.x, event.mouse.y);
+				if (tilelist[i]->isinside(event.mouse.x, event.mouse.y)) {
+					int xclicked = game.boardx(tilelist[i]);
+					int yclicked = game.boardy(tilelist[i]);
+					
+					
+				}
 			}
+
+		
 
 			delete tilelist;
 
