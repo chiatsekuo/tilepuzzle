@@ -40,7 +40,7 @@ bool board::movetile(int x, int y, char dir)
 
 bool board::moveup(int x, int y)
 {
-	if () {
+	if (false) {
 		return true;
 	}
 	else {

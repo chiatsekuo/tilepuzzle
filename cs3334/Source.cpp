@@ -7,20 +7,21 @@
 #define boarderedge 20
 using namespace std;
 
-
+ALLEGRO_DISPLAY * screen;
 ALLEGRO_FONT *font;
 
 void drawtile(int x,int y,int w,int h,int v);
 
 int main() {
 
+	board game=board();
 	cout << "sliding block puzzle" << endl;
 	al_init();
 	al_init_font_addon();
 	al_init_primitives_addon();
 	al_init_ttf_addon();
 	font = al_load_ttf_font("consola.ttf", 72, 0);
-	ALLEGRO_DISPLAY * screen = al_create_display(500,500);
+	screen = al_create_display(500,500);
 	ALLEGRO_EVENT_QUEUE * queue;
 	ALLEGRO_TIMER * timer;
 
@@ -51,8 +52,19 @@ int main() {
 
 			tile ** tilelist = new tile *[boardwidth*boardheight];
 			
+			game.alltiles(tilelist, boardwidth*boardheight);
+
+			
+
 			al_clear_to_color(al_map_rgb(255, 255, 255));
-			drawtile(0,0,100,100,4);
+
+			for (int i = 0; i < boardwidth*boardheight; i++) {
+				tile * dr = tilelist[i];
+				if (!dr->isempty()){
+					drawtile(dr->getx(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
+				}
+			}
+			
 
 			al_flip_display();
 			delete tilelist;
