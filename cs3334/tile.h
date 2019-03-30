@@ -1,7 +1,7 @@
 #pragma once
 #define width 100
 #define height 100
-
+#define speed 1
 
 
 class tile {
@@ -17,6 +17,10 @@ public:
 	int getw();
 	int geth();
 	int getvalue();
+	int adjx(int v);
+	int adjy(int v);
+
+	bool gopos(int x, int y);
 	//getters and setters
 	//add width and height in defilne ^
 	bool isinside(int x, int y);// true if point is in side

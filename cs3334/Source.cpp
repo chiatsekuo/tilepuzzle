@@ -68,7 +68,6 @@ void drawtile(int x, int y, int w, int h, int v)
 	al_draw_rectangle(x,y,x+w,y+h,al_map_rgb(0,0,0),2);
 	char text[10] = { 0 };
 	_itoa_s(v, text,10);
-	cout << text << endl;
 	al_draw_text(font, al_map_rgb(0, 0, 0), x + (w / 2) - (al_get_text_width(font,text)/2), y+w/3, ALLEGRO_ALIGN_LEFT,text);
 
 }

@@ -48,6 +48,40 @@ int tile::getvalue()
 	return value;
 }
 
+int tile::adjx(int v)
+{
+	x += v;
+	return x;
+}
+
+int tile::adjy(int v)
+{
+	y += v;
+	return y;
+}
+
+bool tile::gopos(int x, int y)
+{
+	if (this->x = x && this->y == y) {
+		return true;
+	}
+	if (this->x > x) {
+		adjx(-speed);
+	}
+	else if(this->x < x) {
+		adjx(speed);
+	}
+
+	if (this->y > y) {
+		adjy(-speed);
+	}
+	else if (this->y < y) {
+		adjy(speed);
+	}
+	return false;
+}
+
+
 bool tile::isinside(int x, int y)
 {
 	if (x > this->x&&x < this->x + this->getw()) {
