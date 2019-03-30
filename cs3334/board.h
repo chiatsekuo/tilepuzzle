@@ -29,6 +29,8 @@ public:
 	void initalizePosition();
 	void move();
 
+	char possibledir(int x, int y);
+
 private:
 
 	tile tiles[boardheight][boardwidth];
