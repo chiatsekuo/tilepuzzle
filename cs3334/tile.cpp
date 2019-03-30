@@ -1,13 +1,9 @@
 #include "tile.h"
 
-tile::tile()
+visualtile::visualtile():basetile()
 {
-	isitEmpty = true;
-	value = 1000;
 }
-tile::tile(int v) {
-	value = v;
-	isitEmpty = false;
+visualtile::visualtile(int v): basetile(v){
 	image = al_create_bitmap(100, 100);
 	ALLEGRO_BITMAP * temp = al_load_bitmap("image.jpg");
 	
@@ -15,59 +11,71 @@ tile::tile(int v) {
 	al_draw_scaled_bitmap(temp, 0, 0, al_get_bitmap_width(temp), al_get_bitmap_height(temp), 0, 0, tilewidth, tileheight, 0);
 }
 
-bool tile::isempty()
+basetile::basetile()
+{
+	isitEmpty = true;
+	value = 10;
+}
+
+basetile::basetile(int v)
+{
+	value = v;
+	isitEmpty = false;
+}
+
+bool basetile::isempty()
 {
 	return isitEmpty;
 }
 
-int tile::getx()
+int visualtile::getx()
 {
 	return x;
 }
 
-void tile::setx(int v)
+void visualtile::setx(int v)
 {
 	x = v;
 }
 
-int tile::gety()
+int visualtile::gety()
 {
 	return y;
 }
 
-void tile::sety(int v)
+void visualtile::sety(int v)
 {
 	y = v;
 }
 
-int tile::getw()
+int visualtile::getw()
 {
 	return tilewidth;
 }
 
-int tile::geth()
+int visualtile::geth()
 {
 	return tileheight;
 }
 
-int tile::getvalue()
+int basetile::getvalue()
 {
 	return value;
 }
 
-int tile::adjx(int v)
+int visualtile::adjx(int v)
 {
 	x += v;
 	return x;
 }
 
-int tile::adjy(int v)
+int visualtile::adjy(int v)
 {
 	y += v;
 	return y;
 }
 
-bool tile::gopos(int x, int y)
+bool visualtile::gopos(int x, int y)
 {
 	if (this->x == x && this->y == y) {
 		return true;
@@ -89,7 +97,7 @@ bool tile::gopos(int x, int y)
 }
 
 
-bool tile::isinside(int x, int y)
+bool visualtile::isinside(int x, int y)
 {
 	if (x > this->x&&x < this->x + this->getw()) {
 		if (y > this->y&&y < this->y + this->geth()) {
@@ -99,7 +107,7 @@ bool tile::isinside(int x, int y)
 	return false;
 }
 
-ALLEGRO_BITMAP * tile::getimage()
+ALLEGRO_BITMAP * visualtile::getimage()
 {
 	return image;
 }

@@ -12,9 +12,9 @@ public:
 	
 
 
-	int alltiles(tile ** t,int n);//fill the list with tile pointers &tiles[][]
-	int boardx(tile * t);
-	int boardy(tile *);
+	int alltiles(visualtile ** t,int n);//fill the list with tile pointers &tiles[][]
+	int boardx(visualtile * t);
+	int boardy(visualtile *);
 
 	//int samerow(tile * t, tile[boardwidth]);
 	//int samecol(tile * t, tile[boardwidth]);
@@ -30,7 +30,7 @@ public:
 
 	
 
-	tile tiles[boardheight][boardwidth];
+	visualtile tiles[boardheight][boardwidth];
 private:
 	int x, y;
 	
