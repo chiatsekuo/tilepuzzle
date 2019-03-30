@@ -1,6 +1,6 @@
 #pragma once
-#define width 100
-#define height 100
+#define tilewidth 100
+#define tileheight 100
 #define speed 1
 
 

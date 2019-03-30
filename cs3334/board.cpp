@@ -6,7 +6,12 @@ board::board()
 {
 	for (int i = 0; i < boardwidth; i++) {
 		for (int j = 0; j < boardheight; j++) {
-			tiles[j][i] = tile((j)*boardwidth + i+1);
+			if (i == boardwidth - 1 && j == boardheight - 1) {
+				tiles[boardwidth - 1][boardheight - 1] = tile();
+			}
+			else {
+				tiles[j][i] = tile((j)*boardwidth + i + 1);
+			}
 		}
 	}
 }
@@ -97,8 +102,8 @@ void board::initalizePosition()
 {
 	for (int i = 0; i < boardheight; i++) {
 		for (int j = 0; j < boardwidth; j++) {
-			tiles[i][j].sety(height*i);
-			tiles[i][j].setx(width*j);
+			tiles[i][j].sety(tileheight*i);
+			tiles[i][j].setx(tilewidth*j);
 		}
 	}
 }

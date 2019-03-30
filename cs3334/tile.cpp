@@ -37,12 +37,12 @@ void tile::sety(int v)
 
 int tile::getw()
 {
-	return width;
+	return tilewidth;
 }
 
 int tile::geth()
 {
-	return height;
+	return tileheight;
 }
 
 int tile::getvalue()
