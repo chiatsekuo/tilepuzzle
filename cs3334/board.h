@@ -33,8 +33,6 @@ public:
 	visualtile tiles[boardheight][boardwidth];
 private:
 	int x, y;
-	
-
 };
 
 class oneBlankGame: public board {
