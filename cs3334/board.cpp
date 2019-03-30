@@ -102,6 +102,28 @@ int board::alltiles(tile ** t, int n)
 	return 0;
 }
 
+int board::boardx(tile * t)
+{
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			if (t->getvalue == &tiles[j][i]) {
+				return j;
+			}
+		}
+	}
+}
+
+int board::boardy(tile * t)
+{
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			if (t->getvalue == &tiles[j][i]) {
+				return i;
+			}
+		}
+	}
+}
+
 char * board::toString()
 {
 	char * arr = new char[3*boardheight*boardwidth + 1];
