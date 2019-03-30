@@ -15,15 +15,7 @@ void drawblanktile(int x, int y, int w, int h);
 int main() {
 
 	board game=board(100,100);
-	
-	cout << game.toString() << endl;
-	game.movedown(2, 1);
-	cout << game.toString() << endl;
-	game.movedown(2, 0);
-	cout << game.toString() << endl;
-	game.moveleft(2, 0);
-	cout << game.toString() << endl;
-	cout << "sliding block puzzle" << endl;
+	cout << game.inversions() << endl;
 	game.initalizePosition();
 	if (!al_init()) {
 		exit(-1);
