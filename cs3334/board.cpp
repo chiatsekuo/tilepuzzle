@@ -231,22 +231,62 @@ char oneBlankGame::possibledir(int x, int y)
 int oneBlankGame::numOfMoves()
 {
 	int num = 0;
-	for (int i = 0; i < boardheight; i++) {
-		for (int j = 0; j < boardwidth; j++) {
-			if (tiles[i][j].isempty()) {
-				if (isInboard(i - 1, j)) num++;
-				if (isInboard(i, j + 1))num++;
-				if (isInboard(i + 1, j))num++;
-				if (isInboard(i, j + 1))num++;
-			}
-		}
-	}
+	this->setEmpty();
+	if (isInboard(emptx - 1, empty)) num++;
+	if (isInboard(empty, emptx + 1))num++;
+	if (isInboard(empty + 1, emptx))num++;
+	if (isInboard(empty, emptx + 1))num++;
 	return num;
 }
 
-void oneBlankGame::doMove(int i)
+bool oneBlankGame::doMove(int i)
 {
-	
+	this->setEmpty();
+	if (isInboard(empty + 1, emptx)) {
+		if (i == 0) {
+			return movetile(emptx, empty+1, 'u');
+		}
+		else {
+			i--;
+		}
+	}
+	if (isInboard(empty, emptx - 1)) {
+		if (i == 0) {
+			return movetile(emptx-1, empty, 'r');
+		}
+		else {
+			i--;
+		}
+	}
+	if (isInboard(empty - 1, emptx)) {
+		if (i == 0) {
+			return movetile(emptx, empty-1, 'd');
+		}
+		else {
+			i--;
+		}
+	}
+	if (isInboard(empty, emptx+1)) {
+		if (i == 0) {
+			return movetile(emptx+1, empty, 'l');
+		}
+		else {
+			i--;
+		}
+	}
+	return false;
+}
+
+void oneBlankGame::setEmpty()
+{
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			if (tiles[i][j].isempty()) {
+				emptx = j;
+				empty = i;
+			}
+		}
+	}
 }
 
 bool isInboard(int y, int x)

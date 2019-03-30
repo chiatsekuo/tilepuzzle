@@ -4,6 +4,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
 #include "board.h"
+#include <random>
 #define boarderedge 0
 using namespace std;
 
@@ -78,6 +79,16 @@ int main() {
 
 			delete tilelist;
 
+		}
+		else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+			if (event.keyboard.keycode == ALLEGRO_KEY_R) {
+				int possible = game.numOfMoves();
+
+				int choice = rand() % possible;
+
+				game.doMove(choice);
+				
+			}
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
 

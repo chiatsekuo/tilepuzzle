@@ -7,7 +7,7 @@ class board
 {
 public:
 	board(int x,int y);
-
+	board(board*from);
 	void swap(int x1, int y1, int x2, int y2);//moves tiles from two locations
 	
 
@@ -49,7 +49,10 @@ public:
 	bool moveright(int x, int y);
 	char possibledir(int x, int y);
 	int numOfMoves();
-	void doMove(int i);
+	bool doMove(int i);
+	void setEmpty();
+private:
+	int emptx, empty;
 
 };
 
