@@ -106,7 +106,7 @@ int board::boardx(tile * t)
 {
 	for (int i = 0; i < boardheight; i++) {
 		for (int j = 0; j < boardwidth; j++) {
-			if (t->getvalue == &tiles[j][i]) {
+			if (t == &tiles[j][i]) {
 				return j;
 			}
 		}
@@ -117,7 +117,7 @@ int board::boardy(tile * t)
 {
 	for (int i = 0; i < boardheight; i++) {
 		for (int j = 0; j < boardwidth; j++) {
-			if (t->getvalue == &tiles[j][i]) {
+			if (t == &tiles[j][i]) {
 				return i;
 			}
 		}
