@@ -2,6 +2,11 @@
 
 board::board()
 {
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			tiles[j][i] = (j)*width + i+1;
+		}
+	}
 }
 
 void board::swap(int x1, int y1, int x2, int y2)
@@ -40,12 +45,7 @@ bool board::movetile(int x, int y, char dir)
 
 bool board::moveup(int x, int y)
 {
-	if (false) {
-		return true;
-	}
-	else {
-		return false;
-	}
+	return false;
 }
 
 bool board::movedown(int x, int y)
@@ -72,7 +72,6 @@ int board::alltiles(tile ** t, int n)
 			index++;
 		}
 	}
-		
 	return 0;
 }
 
