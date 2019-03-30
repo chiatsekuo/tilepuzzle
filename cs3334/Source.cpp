@@ -14,7 +14,7 @@ void drawtile(int x,int y,int w,int h,int v);
 void drawblanktile(int x, int y, int w, int h);
 int main() {
 
-	board game=board();
+	board game=board(10,10);
 	
 	cout << game.toString() << endl;
 	game.movedown(2, 1);
