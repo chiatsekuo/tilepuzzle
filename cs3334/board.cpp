@@ -102,6 +102,29 @@ int board::alltiles(tile ** t, int n)
 	return 0;
 }
 
+int board::inversions()
+{
+	int count = 0;
+	int value;
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			value = tiles[i][j].getvalue();
+
+			for (int k = 0; k < boardheight; k++) {
+				for (int l = 0; l < boardwidth; l++) {
+					if ((k == i && j < l) || (k > i)) {
+						if (tiles[k][l].getvalue > value) {
+							count++;
+						}
+					} 
+				}
+			}
+		}
+	}
+
+	return count;
+}
+
 char * board::toString()
 {
 	char * arr = new char[3*boardheight*boardwidth + 1];
