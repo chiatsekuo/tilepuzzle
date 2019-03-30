@@ -40,7 +40,7 @@ bool board::movetile(int x, int y, char dir)
 
 bool board::moveup(int x, int y)
 {
-	if (tiles[y][x].isempty()) {
+	if () {
 		return true;
 	}
 	else {
@@ -61,6 +61,19 @@ bool board::moveleft(int x, int y)
 bool board::moveright(int x, int y)
 {
 	return false;
+}
+
+int board::alltiles(tile ** t, int n)
+{
+	int index = 0;
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			t[index] = &tiles[j][i];
+			index++;
+		}
+	}
+		
+	return 0;
 }
 
 char * board::toString()
