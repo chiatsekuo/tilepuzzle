@@ -15,6 +15,7 @@ void drawtile(int x,int y,int w,int h,int v);
 int main() {
 
 	board game=board();
+	game.initalizePosition();
 	cout << game.toString() << endl;
 	cout << "sliding block puzzle" << endl;
 	
