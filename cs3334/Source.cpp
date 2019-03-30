@@ -11,11 +11,15 @@ ALLEGRO_DISPLAY * screen;
 ALLEGRO_FONT *font;
 
 void drawtile(int x,int y,int w,int h,int v);
-
+void drawblanktile(int x, int y, int w, int h);
 int main() {
 
 	board game=board();
 	game.initalizePosition();
+	cout << game.toString() << endl;
+	game.movedown(2, 1);
+	cout << game.toString() << endl;
+	game.movedown(2, 0);
 	cout << game.toString() << endl;
 	cout << "sliding block puzzle" << endl;
 	
@@ -77,6 +81,9 @@ int main() {
 				if (!dr->isempty()){
 					drawtile(dr->getx(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
 				}
+				else {
+					drawblanktile(dr->getx(), dr->gety(), dr->getw(), dr->geth());
+				}
 			}
 			
 
@@ -91,11 +98,18 @@ int main() {
 
 void drawtile(int x, int y, int w, int h, int v)
 {
+	drawblanktile(x, y, w, h);
 	x += boarderedge;
 	y += boarderedge;
-	al_draw_rectangle(x,y,x+w,y+h,al_map_rgb(0,0,0),2);
 	char text[10] = { 0 };
 	_itoa_s(v, text,10);
 	al_draw_text(font, al_map_rgb(0, 0, 0), x + (w / 2) - (al_get_text_width(font,text)/2), y+w/3, ALLEGRO_ALIGN_LEFT,text);
 
+}
+
+void drawblanktile(int x, int y, int w, int h)
+{
+	x += boarderedge;
+	y += boarderedge;
+	al_draw_rectangle(x, y, x + w, y + h, al_map_rgb(0, 0, 0), 2);
 }
