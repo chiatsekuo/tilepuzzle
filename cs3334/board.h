@@ -33,12 +33,17 @@ public:
 
 	char possibledir(int x, int y);
 
+
+	int numOfMoves();
+	void doMove(int i);
+
+
 private:
 	int x, y;
 	tile tiles[boardheight][boardwidth];
 
 };
 
-
+bool isInboard(int x, int y);
 
 

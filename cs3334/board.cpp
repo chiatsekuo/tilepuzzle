@@ -204,3 +204,26 @@ char board::possibledir(int x, int y)
 	
 }
 
+int board::numOfMoves()
+{
+	int num = 0;
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			if (tiles[i][j].isempty()) {
+				if (isInboard(i - 1, j)) num++;
+				if (isInboard(i, j + 1))num++;
+				if (isInboard(i + 1, j))num++;
+				if (isInboard(i, j + 1))num++;
+			}
+		}
+	}
+	return num;
+}
+
+bool isInboard(int y, int x)
+{
+	if (y >= 0 && y <= boardheight - 1 && x >= 0 && x <= boardwidth - 1) {
+		return true;
+	}
+	return false;
+}
