@@ -4,7 +4,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
-
+#include "ai.h"
 #include "board.h"
 #include <random>
 #define boarderedge 0
@@ -16,6 +16,8 @@ ALLEGRO_FONT *font;
 void drawtile(int x,int y,int w,int h,int v);
 void drawblanktile(int x, int y, int w, int h);
 void drawtileimage(int x, int y, ALLEGRO_BITMAP* image);
+
+
 
 int main() {
 
@@ -37,6 +39,7 @@ int main() {
 	}
 
 	oneBlankGame game = oneBlankGame(100, 100);
+
 	al_set_target_backbuffer(screen);
 	cout << game.inversions() << endl;
 	game.initalizePosition();
@@ -98,6 +101,15 @@ int main() {
 					game.doMove(choice);
 				}
 			}
+			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
+				cout << "solve" << endl;
+				oneBlankGame test = oneBlankGame(&game);
+				bot solver = bot(&game);
+				cout << game.numOfMoves() << endl;
+				cout << game.doMove(0) << endl;
+				cout << game.toString() << endl;
+				game.initalizePosition()
+			}
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
 
@@ -145,6 +157,7 @@ void drawblanktile(int x, int y, int w, int h)
 {
 	x += boarderedge;
 	y += boarderedge;
+
 	al_draw_rectangle(x, y, x + w, y + h, al_map_rgb(0, 0, 0), 2);
 }
 

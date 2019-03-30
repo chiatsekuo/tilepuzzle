@@ -40,6 +40,7 @@ private:
 class oneBlankGame: public board {
 
 public:
+	oneBlankGame(oneBlankGame*from);
 	oneBlankGame(int x, int y);
 
 	bool movetile(int x, int y, char dir);//should use bellow

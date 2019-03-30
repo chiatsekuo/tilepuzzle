@@ -23,7 +23,12 @@ board::board(board * from)
 {
 	for (int y = 0; y < boardheight; y++) {
 		for (int x = 0; x < boardwidth; x++) {
-			tiles[y][x] = from->tiles[y][x].getvalue();
+			if (from->tiles[y][x].isempty()) {
+				this->tiles[y][x] = tile();
+			}
+			else {
+				this->tiles[y][x] = tile(from->tiles[y][x].getvalue());
+			}
 		}
 	}
 }
@@ -241,7 +246,7 @@ int oneBlankGame::numOfMoves()
 {
 	int num = 0;
 	this->setEmpty();
-	if (isInboard(emptx - 1, empty)) num++;
+	if (isInboard(empty - 1, emptx)) num++;
 	if (isInboard(empty, emptx + 1))num++;
 	if (isInboard(empty + 1, emptx))num++;
 	if (isInboard(empty, emptx + 1))num++;
@@ -293,6 +298,7 @@ void oneBlankGame::setEmpty()
 			if (tiles[i][j].isempty()) {
 				emptx = j;
 				empty = i;
+				break;
 			}
 		}
 	}
@@ -304,6 +310,11 @@ bool isInboard(int y, int x)
 		return true;
 	}
 	return false;
+}
+
+oneBlankGame::oneBlankGame(oneBlankGame * from) :board((board *)from)
+{
+	this->setEmpty();
 }
 
 oneBlankGame::oneBlankGame(int x, int y):board(x,y)

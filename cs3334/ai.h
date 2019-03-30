@@ -2,18 +2,17 @@
 #include "board.h"
 
 struct gamestate {
-	int movex;
-	int movey;
-	char movedir;
+	int moveChoice;
 	int inversions;
 };
 
 class bot {
 
 public:
-	bot(board * current);
-
+	bot(oneBlankGame * current);
+	int getChoice();
 	gamestate * choices;
+	int choicesize;
 
 
 };
