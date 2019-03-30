@@ -15,7 +15,7 @@ void drawblanktile(int x, int y, int w, int h);
 int main() {
 
 	board game=board();
-	game.initalizePosition();
+	//game.initalizePosition();
 	cout << game.toString() << endl;
 	game.movedown(2, 1);
 	cout << game.toString() << endl;
@@ -72,7 +72,7 @@ int main() {
 			
 			game.alltiles(tilelist, boardwidth*boardheight);
 
-			
+			game.move();
 
 			al_clear_to_color(al_map_rgb(255, 255, 255));
 			
