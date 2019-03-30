@@ -112,3 +112,13 @@ char * board::toString()
 	}
 	return arr;
 }
+
+void board::initalizePosition()
+{
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			tiles[i][j].sety(height*i);
+			tiles[i][j].setx(width*j);
+		}
+	}
+}
