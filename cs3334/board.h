@@ -47,7 +47,10 @@ public:
 	bool moveright(int x, int y);
 	char possibledir(int x, int y);
 	int numOfMoves();
-	void doMove(int i);
+	bool doMove(int i);
+	void setEmpty();
+private:
+	int emptx, empty;
 
 };
 
