@@ -96,9 +96,9 @@ bool board::moveright(int x, int y)
 int board::alltiles(tile ** t, int n)
 {
 	int index = 0;
-	for (int i = 0; i < boardwidth; i++) {
-		for (int j = 0; j < boardheight; j++) {
-			t[index] = &tiles[j][i];
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			t[index] = &tiles[i][j];
 			index++;
 		}
 	}
@@ -109,6 +109,20 @@ int board::inversions()
 {
 	int count = 0;
 	int value;
+
+	tile ** arr = new tile* [boardwidth * boardheight];
+	this->alltiles(arr, boardwidth * boardheight);
+	for (int i = 0; i < boardwidth * boardheight; i++) {
+		if (arr[i]->isempty())
+			i++;
+		for (int j = i + 1; j < boardwidth * boardheight; j++) {
+			if (arr[i]->getvalue() > arr[j]->getvalue())
+				count++;
+		}
+		
+	}
+	/*
+
 	for (int i = 0; i < boardheight; i++) {
 		for (int j = 0; j < boardwidth; j++) {
 			value = tiles[i][j].getvalue();
@@ -124,7 +138,7 @@ int board::inversions()
 			}
 		}
 	}
-
+	*/
 	return count;
 }
 
