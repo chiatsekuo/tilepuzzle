@@ -55,12 +55,12 @@ bool board::movedown(int x, int y)
 
 bool board::moveleft(int x, int y)
 {
-	false;
+	return false;
 }
 
 bool board::moveright(int x, int y)
 {
-	false;
+	return false;
 }
 
 char * board::toString()
