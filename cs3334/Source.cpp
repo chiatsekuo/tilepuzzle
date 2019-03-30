@@ -17,7 +17,7 @@ int main() {
 	timer = al_create_timer(1.0 / 20.0);
 
 
-	
+	al_register_event_source(queue, al_get_display_event_source(screen));
 	al_register_event_source(queue, al_get_timer_event_source(timer));
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_mouse_event_source());
