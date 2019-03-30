@@ -1,4 +1,6 @@
 #include "board.h"
+#include <stdlib.h>
+#include <string.h>
 
 board::board()
 {
@@ -77,5 +79,15 @@ int board::alltiles(tile ** t, int n)
 
 char * board::toString()
 {
-	return nullptr;
+	char * arr = new char[3*boardheight*boardwidth + 1];
+	arr = { 0 };
+	int index = 0;
+	for (int y = 0; y < boardheight; y++) {
+		for (int x = 0; x < boardwidth; x++) {
+			char buf[3] = { 0 };
+			itoa(tiles[y][x].getvalue(), buf, 3);
+			strcat(arr, buf);
+		}
+	}
+	return arr;
 }
