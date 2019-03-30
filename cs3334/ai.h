@@ -1,6 +1,13 @@
 #pragma once
 #include "board.h"
 
+struct gamestate {
+	int movex;
+	int movey;
+	char movedir;
+	int inversions;
+};
+
 class bot {
 
 public:
@@ -11,9 +18,3 @@ public:
 
 };
 
-struct gamestate {
-	int movex;
-	int movey;
-	char movedir;
-	int inversions;
-};
