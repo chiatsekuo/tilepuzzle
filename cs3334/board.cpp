@@ -170,8 +170,8 @@ void board::initalizePosition()
 {
 	for (int i = 0; i < boardheight; i++) {
 		for (int j = 0; j < boardwidth; j++) {
-			tiles[i][j].sety(tileheight*i);
-			tiles[i][j].setx(tilewidth*j);
+			tiles[i][j].sety(tileheight*i + y);
+			tiles[i][j].setx(tilewidth*j + x);
 		}
 	}
 }
@@ -180,7 +180,7 @@ void board::move()
 {
 	for (int i = 0; i < boardheight; i++) {
 		for (int j = 0; j < boardwidth; j++) {
-			tiles[i][j].gopos(tilewidth*j, tileheight*i);
+			tiles[i][j].gopos(tilewidth*j + x, tileheight*i + y);
 		}
 	}
 }

@@ -12,9 +12,10 @@ ALLEGRO_FONT *font;
 
 void drawtile(int x,int y,int w,int h,int v);
 void drawblanktile(int x, int y, int w, int h);
+
 int main() {
 
-	board game=board(10,10);
+	board game=board(100,100);
 	
 	cout << game.toString() << endl;
 	game.movedown(2, 1);
