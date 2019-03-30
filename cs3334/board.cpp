@@ -86,7 +86,7 @@ char * board::toString()
 		for (int x = 0; x < boardwidth; x++) {
 			char buf[3] = { 0 };
 			_itoa(tiles[y][x].getvalue(), buf, 3);
-			strcat(arr, buf);
+			strcat_s(arr, 3*boardheight*boardwidth + 1, buf);
 		}
 	}
 	return arr;
