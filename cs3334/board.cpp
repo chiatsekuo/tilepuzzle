@@ -161,17 +161,20 @@ void board::move()
 
 char board::possibledir(int x, int y)
 {
-	if (tiles[y-1][x].isempty()) {
+	if (tiles[y - 1][x].isempty() && y > 0) {
 		return 'u';
 	}
-	else if (tiles[y][x + 1].isempty()) {
+	else if (tiles[y][x + 1].isempty() && x < boardwidth - 1) {
 		return 'r';
 	}
-	else if (tiles[y + 1][x].isempty()) {
+	else if (tiles[y + 1][x].isempty() && y < boardheight - 1) {
 		return 'd';
 	}
-	else if (tiles[y][x - 1].isempty()) {
+	else if (tiles[y][x - 1].isempty() && x > 0) {
 		return 'l';
 	}
+	else
+		return 'o';
+	
 }
 
