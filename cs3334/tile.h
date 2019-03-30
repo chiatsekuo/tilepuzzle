@@ -6,19 +6,32 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-class tile {
+
+
+class basetile {
+public:
+	basetile();
+	basetile(int);
+	bool isempty();
+	int getvalue();
+private:
+	int value;
+	bool isitEmpty;
+};
+
+class visualtile:public basetile {
 
 public:
-	tile();
-	tile(int);
-	bool isempty();
+	visualtile();
+	visualtile(int);
+	
 	int getx();
 	void setx(int v);
 	int gety();
 	void sety(int v);
 	int getw();
 	int geth();
-	int getvalue();
+	
 	int adjx(int v);
 	int adjy(int v);
 
@@ -31,10 +44,10 @@ public:
 
 private:
 	ALLEGRO_BITMAP * image;
-	int value;
+	
 	int x=0;
 	int y=0;
-	bool isitEmpty;
+	
 
 
 };

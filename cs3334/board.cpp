@@ -10,10 +10,10 @@ board::board(int x, int y)
 	for (int i = 0; i < boardwidth; i++) {
 		for (int j = 0; j < boardheight; j++) {
 			if (i == boardwidth - 1 && j == boardheight - 1) {
-				tiles[boardwidth - 1][boardheight - 1] = tile();
+				tiles[boardwidth - 1][boardheight - 1] = visualtile();
 			}
 			else {
-				tiles[j][i] = tile((j)*boardwidth + i + 1);
+				tiles[j][i] = visualtile((j)*boardwidth + i + 1);
 			}
 		}
 	}
@@ -35,7 +35,7 @@ board::board(board * from)
 
 void board::swap(int x1, int y1, int x2, int y2)
 {
-	tile temp=tiles[y1][x1];
+	visualtile temp=tiles[y1][x1];
 	tiles[y1][x1] = tiles[y2][x2];
 	tiles[y2][x2] = temp;
 }
@@ -107,7 +107,7 @@ bool oneBlankGame::moveright(int x, int y)
 	}
 }
 
-int board::alltiles(tile ** t, int n)
+int board::alltiles(visualtile ** t, int n)
 {
 	int index = 0;
 	for (int i = 0; i < boardheight; i++) {
@@ -124,7 +124,7 @@ int board::inversions()
 	int count = 0;
 	int value;
 
-	tile ** arr = new tile* [boardwidth * boardheight];
+	visualtile ** arr = new visualtile* [boardwidth * boardheight];
 	this->alltiles(arr, boardwidth * boardheight);
 	for (int i = 0; i < boardwidth * boardheight; i++) {
 		if (arr[i]->isempty())
@@ -156,7 +156,7 @@ int board::inversions()
 	return count;
 }
 
-int board::boardx(tile * t)
+int board::boardx(visualtile * t)
 {
 	for (int i = 0; i < boardheight; i++) {
 		for (int j = 0; j < boardwidth; j++) {
@@ -167,7 +167,7 @@ int board::boardx(tile * t)
 	}
 }
 
-int board::boardy(tile * t)
+int board::boardy(visualtile * t)
 {
 	for (int i = 0; i < boardheight; i++) {
 		for (int j = 0; j < boardwidth; j++) {

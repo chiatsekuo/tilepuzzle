@@ -73,7 +73,7 @@ int main() {
 		else if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 
 			cout << "mouse at " << event.mouse.x << ", " << event.mouse.y << endl;
-			tile ** tilelist = new tile*[boardwidth*boardheight];
+			visualtile ** tilelist = new visualtile*[boardwidth*boardheight];
 			game.alltiles(tilelist, boardwidth*boardheight);
 
 			for (int i = 0; i < boardwidth*boardheight; i++) {
@@ -113,7 +113,7 @@ int main() {
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
 
-			tile ** tilelist = new tile*[boardwidth*boardheight];
+			visualtile ** tilelist = new visualtile*[boardwidth*boardheight];
 			
 			game.alltiles(tilelist, boardwidth*boardheight);
 
@@ -122,7 +122,7 @@ int main() {
 			al_clear_to_color(al_map_rgb(255, 255, 255));
 			
 			for (int i = 0; i < boardwidth*boardheight; i++) {
-				tile * dr = tilelist[i];
+				visualtile * dr = tilelist[i];
 				if (!dr->isempty()){
 					drawtileimage(dr->getx(), dr->gety(), dr->getimage());
 					drawtile(dr->getx(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
