@@ -2,6 +2,11 @@
 
 board::board()
 {
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			tiles[j][i] = (j)*width + i+1;
+		}
+	}
 }
 
 void board::swap(int x1, int y1, int x2, int y2)
