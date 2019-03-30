@@ -64,7 +64,7 @@ int tile::adjy(int v)
 
 bool tile::gopos(int x, int y)
 {
-	if (this->x = x && this->y == y) {
+	if (this->x == x && this->y == y) {
 		return true;
 	}
 	if (this->x > x) {
