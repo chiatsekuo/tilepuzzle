@@ -19,43 +19,58 @@ bool board::movetile(int x, int y, char dir)
 {
 	switch (dir) {
 	case 'u':
-		if (moveup(x, y)) {
+		if (moveup(x, y))
 			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
 	case 'r':
-		if (moveup(x, y)) {
+		if (moveright(x, y))
 			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
 	case 'd':
-		if (moveup(x, y)) {
+		if (movedown(x, y))
 			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
 	case 'l':
-		if (moveup(x, y)) {
+		if (moveleft(x, y))
 			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
 	}
 	return false;
 }
 
 bool board::moveup(int x, int y)
 {
+	if (tiles[y][x].getvalue()!=0 && y - 1 >= 0) {
+		swap(x, y, x, y - 1);
+		return true;
+	}
+	return false;
+}
+
+bool board::movedown(int x, int y)
+{
+	
+}
+
+bool board::moveleft(int x, int y)
+{
+	if (tiles[x - 1][y] == 0 && x - 1 >= 0) {
+		swap(x, y, x - 1, y);
+		return true;
+	}
+	return false;
+}
+
+bool board::moveright(int x, int y)
+{
+	if (tiles[y][x + 1] == 0 && x + 1 <= width) {
+		swap(x, y, x+1, y);
+		return true;
+	}
 	return false;
 }
 
 char * board::toString()
 {
-	return 0;
+	return nullptr;
 }
