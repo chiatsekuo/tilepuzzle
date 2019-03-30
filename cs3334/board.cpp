@@ -127,3 +127,12 @@ void board::initalizePosition()
 		}
 	}
 }
+
+void board::move()
+{
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			tiles[i][j].gopos(tilewidth*j, tileheight*i);
+		}
+	}
+}
