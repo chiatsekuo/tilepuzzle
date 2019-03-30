@@ -3,6 +3,8 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_image.h>
+
 #include "board.h"
 #include <random>
 #define boarderedge 0
@@ -29,6 +31,9 @@ int main() {
 		exit(-1);
 	}
 	if (!al_init_ttf_addon()) {
+		exit(-1);
+	}
+	if (!al_init_image_addon()) {
 		exit(-1);
 	}
 
