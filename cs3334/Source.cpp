@@ -21,6 +21,8 @@ int main() {
 	cout << game.toString() << endl;
 	game.movedown(2, 0);
 	cout << game.toString() << endl;
+	game.moveleft(2, 0);
+	cout << game.toString() << endl;
 	cout << "sliding block puzzle" << endl;
 	
 	if (!al_init()) {

@@ -127,3 +127,20 @@ void board::initalizePosition()
 		}
 	}
 }
+
+char board::possibledir(int x, int y)
+{
+	if (tiles[y-1][x].isempty()) {
+		return 'u';
+	}
+	else if (tiles[y][x + 1].isempty()) {
+		return 'r';
+	}
+	else if (tiles[y + 1][x].isempty()) {
+		return 'd';
+	}
+	else if (tiles[y][x - 1].isempty()) {
+		return 'l';
+	}
+}
+
