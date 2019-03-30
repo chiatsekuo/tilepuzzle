@@ -1,6 +1,6 @@
 #pragma once
-#define width
-#define height
+#define width 3
+#define height 3
 
 
 

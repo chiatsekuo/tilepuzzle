@@ -3,3 +3,7 @@
 tile::tile()
 {
 }
+
+tile::tile(int)
+{
+}
