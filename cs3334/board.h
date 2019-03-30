@@ -21,7 +21,7 @@ public:
 	int realx(tile * t);
 	int realy(tile * t);
 	int boardx(tile * t);
-	int boardy(tile * t);
+	int boardy(tile * )
 	int samerow(tile * t, tile[boardwidth]);
 	int samecol(tile * t, tile[boardwidth]);
 
