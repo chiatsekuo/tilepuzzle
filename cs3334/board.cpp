@@ -125,6 +125,28 @@ int board::inversions()
 	return count;
 }
 
+int board::boardx(tile * t)
+{
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			if (t == &tiles[j][i]) {
+				return i;
+			}
+		}
+	}
+}
+
+int board::boardy(tile * t)
+{
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			if (t == &tiles[j][i]) {
+				return j;
+			}
+		}
+	}
+}
+
 char * board::toString()
 {
 	char * arr = new char[3*boardheight*boardwidth + 1];
@@ -159,3 +181,23 @@ void board::move()
 		}
 	}
 }
+
+char board::possibledir(int x, int y)
+{
+	if (tiles[y - 1][x].isempty() && y > 0) {
+		return 'u';
+	}
+	else if (tiles[y][x + 1].isempty() && x < boardwidth - 1) {
+		return 'r';
+	}
+	else if (tiles[y + 1][x].isempty() && y < boardheight - 1) {
+		return 'd';
+	}
+	else if (tiles[y][x - 1].isempty() && x > 0) {
+		return 'l';
+	}
+	else
+		return 'o';
+	
+}
+

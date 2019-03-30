@@ -15,14 +15,16 @@ void drawblanktile(int x, int y, int w, int h);
 int main() {
 
 	board game=board();
-	//game.initalizePosition();
+	
 	cout << game.toString() << endl;
 	game.movedown(2, 1);
 	cout << game.toString() << endl;
 	game.movedown(2, 0);
 	cout << game.toString() << endl;
+	game.moveleft(2, 0);
+	cout << game.toString() << endl;
 	cout << "sliding block puzzle" << endl;
-	
+	game.initalizePosition();
 	if (!al_init()) {
 		exit(-1);
 	}
@@ -64,7 +66,24 @@ int main() {
 			done = true;
 		}
 		else if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+
 			cout << "mouse at " << event.mouse.x << ", " << event.mouse.y << endl;
+			tile ** tilelist = new tile*[boardwidth*boardheight];
+			game.alltiles(tilelist, boardwidth*boardheight);
+
+			for (int i = 0; i < boardwidth*boardheight; i++) {
+				if (tilelist[i]->isinside(event.mouse.x, event.mouse.y)) {
+					int xclicked = game.boardx(tilelist[i]);
+					int yclicked = game.boardy(tilelist[i]);
+					char dir = game.possibledir(xclicked,yclicked);
+					game.movetile(xclicked, yclicked, dir);
+				}
+			}
+
+		
+
+			delete tilelist;
+
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
 
@@ -88,7 +107,7 @@ int main() {
 			
 
 			al_flip_display();
-			//delete tilelist;
+			delete tilelist;
 		}
 
 	}
