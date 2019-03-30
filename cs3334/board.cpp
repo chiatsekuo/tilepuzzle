@@ -2,9 +2,9 @@
 
 board::board()
 {
-	for (int i = 0; i < height; i++) {
-		for (int j = 0; j < width; j++) {
-			tiles[j][i] = (j)*width + i+1;
+	for (int i = 0; i < boardwidth; i++) {
+		for (int j = 0; j < boardheight; j++) {
+			tiles[j][i] = tile((j)*boardwidth + i+1);
 		}
 	}
 }
@@ -66,8 +66,8 @@ bool board::moveright(int x, int y)
 int board::alltiles(tile ** t, int n)
 {
 	int index = 0;
-	for (int i = 0; i < height; i++) {
-		for (int j = 0; j < width; j++) {
+	for (int i = 0; i < boardwidth; i++) {
+		for (int j = 0; j < boardheight; j++) {
 			t[index] = &tiles[j][i];
 			index++;
 		}

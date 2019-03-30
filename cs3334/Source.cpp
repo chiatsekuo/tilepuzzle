@@ -15,12 +15,25 @@ void drawtile(int x,int y,int w,int h,int v);
 int main() {
 
 	board game=board();
+	
 	cout << "sliding block puzzle" << endl;
-	al_init();
-	al_init_font_addon();
-	al_init_primitives_addon();
-	al_init_ttf_addon();
+	
+	if (!al_init()) {
+		exit(-1);
+	}
+	if (!al_init_font_addon()) {
+		exit(-1);
+	}
+	if (!al_init_primitives_addon()) {
+		exit(-1);
+	}
+	if (!al_init_ttf_addon()) {
+		exit(-1);
+	}
+
+
 	font = al_load_ttf_font("consola.ttf", 72, 0);
+
 	screen = al_create_display(500,500);
 	ALLEGRO_EVENT_QUEUE * queue;
 	ALLEGRO_TIMER * timer;
@@ -50,14 +63,14 @@ int main() {
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
 
-			tile ** tilelist = new tile *[boardwidth*boardheight];
+			tile ** tilelist = new tile*[boardwidth*boardheight];
 			
 			game.alltiles(tilelist, boardwidth*boardheight);
 
 			
 
 			al_clear_to_color(al_map_rgb(255, 255, 255));
-
+			
 			for (int i = 0; i < boardwidth*boardheight; i++) {
 				tile * dr = tilelist[i];
 				if (!dr->isempty()){
@@ -67,7 +80,7 @@ int main() {
 			
 
 			al_flip_display();
-			delete tilelist;
+			//delete tilelist;
 		}
 
 	}

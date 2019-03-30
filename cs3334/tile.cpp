@@ -6,6 +6,7 @@ tile::tile()
 }
 tile::tile(int v) {
 	value = v;
+	isitEmpty = false;
 }
 
 bool tile::isempty()
