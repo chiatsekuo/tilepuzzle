@@ -185,7 +185,7 @@ void board::move()
 	}
 }
 
-char board::possibledir(int x, int y)
+char oneBlankGame::possibledir(int x, int y)
 {
 	if (tiles[y - 1][x].isempty() && y > 0) {
 		return 'u';
@@ -204,7 +204,7 @@ char board::possibledir(int x, int y)
 	
 }
 
-int board::numOfMoves()
+int oneBlankGame::numOfMoves()
 {
 	int num = 0;
 	for (int i = 0; i < boardheight; i++) {
@@ -220,7 +220,7 @@ int board::numOfMoves()
 	return num;
 }
 
-void board::doMove(int i)
+void oneBlankGame::doMove(int i)
 {
 	
 }

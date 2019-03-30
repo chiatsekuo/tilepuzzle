@@ -26,9 +26,7 @@ public:
 	void move();
 
 
-	char possibledir(int x, int y);
-	int numOfMoves();
-	void doMove(int i);
+	
 
 	tile tiles[boardheight][boardwidth];
 private:
@@ -47,7 +45,9 @@ public:
 	bool movedown(int x, int y);//return true if good
 	bool moveleft(int x, int y);
 	bool moveright(int x, int y);
-
+	char possibledir(int x, int y);
+	int numOfMoves();
+	void doMove(int i);
 
 };
 
