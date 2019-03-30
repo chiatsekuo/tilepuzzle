@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-board::board()
+
+board::board(int x, int y)
 {
+	this->x = x;
+	this->y = y;
 	for (int i = 0; i < boardwidth; i++) {
 		for (int j = 0; j < boardheight; j++) {
 			if (i == boardwidth - 1 && j == boardheight - 1) {

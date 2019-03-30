@@ -6,7 +6,7 @@
 class board
 {
 public:
-	board();
+	board(int x,int y);
 
 	void swap(int x1, int y1, int x2, int y2);//moves tiles from two locations
 	tile * getTile(int x,int y);
@@ -34,7 +34,7 @@ public:
 	char possibledir(int x, int y);
 
 private:
-
+	int x, y;
 	tile tiles[boardheight][boardwidth];
 
 };
