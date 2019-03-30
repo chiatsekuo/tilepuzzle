@@ -20,6 +20,8 @@ public:
 	int alltiles(tile ** t,int n);//fill the list with tile pointers &tiles[][]
 	int realx(tile * t);
 	int realy(tile * t);
+	int boardx(tile * t);
+	int boardy(tile * t);
 	int samerow(tile * t, tile[boardwidth]);
 	int samecol(tile * t, tile[boardwidth]);
 
