@@ -6,7 +6,7 @@
 using namespace std;
 
 
-
+ALLEGRO_FONT *font;
 
 void drawtile(int x,int y,int w,int h,int v);
 
@@ -17,7 +17,7 @@ int main() {
 	al_init_font_addon();
 	al_init_primitives_addon();
 	al_init_ttf_addon();
-
+	font = al_load_ttf_font("consola.ttf", 72, 0);
 	ALLEGRO_DISPLAY * screen = al_create_display(500,500);
 	ALLEGRO_EVENT_QUEUE * queue;
 	ALLEGRO_TIMER * timer;
@@ -54,5 +54,11 @@ int main() {
 
 	}
 	//system("pause");
+
+}
+
+void drawtile(int x, int y, int w, int h, int v)
+{
+
 
 }
