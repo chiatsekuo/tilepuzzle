@@ -40,12 +40,7 @@ bool board::movetile(int x, int y, char dir)
 
 bool board::moveup(int x, int y)
 {
-	if () {
-		return true;
-	}
-	else {
-		return false;
-	}
+	return false;
 }
 
 bool board::movedown(int x, int y)
@@ -72,7 +67,6 @@ int board::alltiles(tile ** t, int n)
 			index++;
 		}
 	}
-		
 	return 0;
 }
 
