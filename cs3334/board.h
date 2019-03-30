@@ -9,11 +9,7 @@ public:
 	board(int x,int y);
 
 	void swap(int x1, int y1, int x2, int y2);//moves tiles from two locations
-	bool movetile(int x, int y,char dir);//should use bellow
-	bool moveup(int x, int y);//should check for empty
-	bool movedown(int x, int y);//return true if good
-	bool moveleft(int x, int y);
-	bool moveright(int x, int y);
+	
 
 
 	int alltiles(tile ** t,int n);//fill the list with tile pointers &tiles[][]
@@ -29,22 +25,28 @@ public:
 	void initalizePosition();
 	void move();
 
+
 	char possibledir(int x, int y);
-
-
 	int numOfMoves();
 	void doMove(int i);
 
-
+	tile tiles[boardheight][boardwidth];
 private:
 	int x, y;
-	tile tiles[boardheight][boardwidth];
+	
 
 };
 
-class oneBlankgame: public board {
+class oneBlankGame: public board {
 
+public:
+	oneBlankGame(int x, int y);
 
+	bool movetile(int x, int y, char dir);//should use bellow
+	bool moveup(int x, int y);//should check for empty
+	bool movedown(int x, int y);//return true if good
+	bool moveleft(int x, int y);
+	bool moveright(int x, int y);
 
 
 };

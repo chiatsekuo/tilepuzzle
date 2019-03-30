@@ -26,7 +26,7 @@ void board::swap(int x1, int y1, int x2, int y2)
 	tiles[y2][x2] = temp;
 }
 
-bool board::movetile(int x, int y, char dir)
+bool oneBlankGame::movetile(int x, int y, char dir)
 {
 	switch (dir) {
 	case 'u':
@@ -49,7 +49,7 @@ bool board::movetile(int x, int y, char dir)
 	return false;
 }
 
-bool board::moveup(int x, int y)
+bool oneBlankGame::moveup(int x, int y)
 {
 	if (y == 0 || !tiles[y-1][x].isempty()) {
 		return false;
@@ -60,7 +60,7 @@ bool board::moveup(int x, int y)
 	}
 }
 
-bool board::movedown(int x, int y)
+bool oneBlankGame::movedown(int x, int y)
 {
 	if (y == boardheight-1 || !tiles[y+1][x].isempty()) {
 		return false;
@@ -71,7 +71,7 @@ bool board::movedown(int x, int y)
 	}
 }
 
-bool board::moveleft(int x, int y)
+bool oneBlankGame::moveleft(int x, int y)
 {
 	if (x == 0 || !tiles[y][x-1].isempty()) {
 		return false;
@@ -82,7 +82,7 @@ bool board::moveleft(int x, int y)
 	}
 }
 
-bool board::moveright(int x, int y)
+bool oneBlankGame::moveright(int x, int y)
 {
 	if (x == boardwidth-1 || !tiles[y][x+1].isempty()) {
 		return false;
@@ -231,4 +231,9 @@ bool isInboard(int y, int x)
 		return true;
 	}
 	return false;
+}
+
+oneBlankGame::oneBlankGame(int x, int y):board(x,y)
+{
+
 }
