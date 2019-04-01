@@ -11,8 +11,8 @@ struct gamestate {
 class bot {
 
 public:
-	bot(board * current);
-
+	bot(oneBlankGame * current);
+	int getchoice();
 	gamestate * choices;
 
 

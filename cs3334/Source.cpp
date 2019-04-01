@@ -37,6 +37,7 @@ int main() {
 	}
 
 	oneBlankGame game = oneBlankGame(100, 100);
+	//rowChangeGame game = rowChangeGame(100, 100);
 	al_set_target_backbuffer(screen);
 	cout << game.inversions() << endl;
 	game.initalizePosition();
