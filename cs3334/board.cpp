@@ -265,6 +265,11 @@ int board::getheight()
 	return boardheight * tileheight;
 }
 
+oneBlankGame::oneBlankGame(int x, int y) :board(x, y)
+{
+
+}
+
 char oneBlankGame::possibledir(int x, int y)
 {
 	if (tiles[y - 1][x].isempty() && y > 0) {
@@ -354,12 +359,148 @@ bool isInboard(int y, int x)
 	return false;
 }
 
+
+/*********************************************************************second game************************************************************************/
+rowChangeGame::rowChangeGame(int x, int y):board(x, y)
+{
+	tiles[boardwidth - 1][boardheight - 1] = visualtile(boardheight*boardwidth);
+}
+bool rowChangeGame::movetile(int x, int y, char dir)
+{
+	switch (dir) {
+	case 'u':
+		if (moveup(x, y))
+			return true;
+		return false;
+	case 'r':
+		if (moveright(x, y))
+			return true;
+		return false;
+	case 'd':
+		if (movedown(x, y))
+			return true;
+		return false;
+	case 'l':
+		if (moveleft(x, y))
+			return true;
+		return false;
+	}
+	return false;
+}
+
+bool rowChangeGame::moveup(int x, int y)
+{
+	for (int i = 0; i < boardheight-1; i++) {
+		swap(x, i, x, i + 1);
+	}
+	return true;
+}
+
+bool rowChangeGame::movedown(int x, int y)
+{
+	for (int i = boardheight - 1; i > 0; i--) {
+		swap(x, i, x, i - 1);
+	}
+	return true;
+}
+
+bool rowChangeGame::moveleft(int x, int y)
+{
+	for (int i = 0; i < boardwidth-1; i++) {
+		swap(i, y, i+1, y);
+	}
+	return true;
+}
+
+bool rowChangeGame::moveright(int x, int y)
+{
+	for (int i = boardwidth - 1; i > 0 ; i--) {
+		swap(i, y, i -1 , y);
+	}
+	return true;
+}
+char rowChangeGame::possibledir(int x, int y)
+{
+	if (tiles[y - 1][x].isempty() && y > 0) {
+		return 'u';
+	}
+	else if (tiles[y][x + 1].isempty() && x < boardwidth - 1) {
+		return 'r';
+	}
+	else if (tiles[y + 1][x].isempty() && y < boardheight - 1) {
+		return 'd';
+	}
+	else if (tiles[y][x - 1].isempty() && x > 0) {
+		return 'l';
+	}
+	else
+		return 'o';
+
 oneBlankGame::oneBlankGame(oneBlankGame * from) :board((board *)from)
 {
 	this->setEmpty();
 }
 
-oneBlankGame::oneBlankGame(int x, int y):board(x,y)
-{
+oneBlankGame::oneBlankGame(int x, int y):board(x,y){
+}
 
+int rowChangeGame::numOfMoves()
+{
+	int num = 0;
+	this->setEmpty();
+	if (isInboard(emptx - 1, empty)) num++;
+	if (isInboard(empty, emptx + 1))num++;
+	if (isInboard(empty + 1, emptx))num++;
+	if (isInboard(empty, emptx + 1))num++;
+	return num;
+}
+
+bool rowChangeGame::doMove(int i)
+{
+	this->setEmpty();
+	if (isInboard(empty + 1, emptx)) {
+		if (i == 0) {
+			return movetile(emptx, empty + 1, 'u');
+		}
+		else {
+			i--;
+		}
+	}
+	if (isInboard(empty, emptx - 1)) {
+		if (i == 0) {
+			return movetile(emptx - 1, empty, 'r');
+		}
+		else {
+			i--;
+		}
+	}
+	if (isInboard(empty - 1, emptx)) {
+		if (i == 0) {
+			return movetile(emptx, empty - 1, 'd');
+		}
+		else {
+			i--;
+		}
+	}
+	if (isInboard(empty, emptx + 1)) {
+		if (i == 0) {
+			return movetile(emptx + 1, empty, 'l');
+		}
+		else {
+			i--;
+		}
+	}
+	return false;
+}
+
+void rowChangeGame::setEmpty()
+{
+	for (int i = 0; i < boardheight; i++) {
+		for (int j = 0; j < boardwidth; j++) {
+			if (tiles[i][j].isempty()) {
+				emptx = j;
+				empty = i;
+			}
+		}
+	}
 }

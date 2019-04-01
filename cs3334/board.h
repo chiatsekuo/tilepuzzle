@@ -57,6 +57,25 @@ private:
 
 };
 
+class rowChangeGame : public board {
+
+public:
+	rowChangeGame(int x, int y);
+
+	bool movetile(int x, int y, char dir);//should use bellow
+	bool moveup(int x, int y);//should check for empty
+	bool movedown(int x, int y);//return true if good
+	bool moveleft(int x, int y);
+	bool moveright(int x, int y);
+	char possibledir(int x, int y);
+	int numOfMoves();
+	bool doMove(int i);
+	void setEmpty();
+private:
+	int emptx, empty;
+
+};
+
 bool isInboard(int x, int y);
 
 

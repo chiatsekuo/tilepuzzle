@@ -38,8 +38,8 @@ int main() {
 		exit(-1);
 	}
 
-	oneBlankGame game = oneBlankGame(100, 100);
-
+	//oneBlankGame game = oneBlankGame(100, 100);
+	rowChangeGame game = rowChangeGame(100, 100);
 	al_set_target_backbuffer(screen);
 	cout << game.inversions() << endl;
 	game.initalizePosition();
@@ -84,8 +84,22 @@ int main() {
 				if (tilelist[i]->isinside(event.mouse.x, event.mouse.y)) {
 					int xclicked = game.boardx(tilelist[i]);
 					int yclicked = game.boardy(tilelist[i]);
-					char dir = game.possibledir(xclicked,yclicked);
-					game.movetile(xclicked, yclicked, dir);
+					//char dir = game.possibledir(xclicked,yclicked);
+					ALLEGRO_KEYBOARD_STATE keys;
+					al_get_keyboard_state(&keys);
+					if (al_key_down(&keys, ALLEGRO_KEY_LEFT)) {
+						game.movetile(xclicked, yclicked, 'l');
+					}
+					else if (al_key_down(&keys, ALLEGRO_KEY_RIGHT)) {
+						game.movetile(xclicked, yclicked, 'r');
+					}
+					else if (al_key_down(&keys, ALLEGRO_KEY_UP)) {
+						game.movetile(xclicked, yclicked, 'u');
+					}
+					else if (al_key_down(&keys, ALLEGRO_KEY_DOWN)) {
+						game.movetile(xclicked, yclicked, 'd');
+					}
+					
 					break;
 				}
 			}
