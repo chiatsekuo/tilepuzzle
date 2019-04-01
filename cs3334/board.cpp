@@ -218,6 +218,11 @@ int board::getheight()
 	return boardheight * tileheight;
 }
 
+oneBlankGame::oneBlankGame(int x, int y) :board(x, y)
+{
+
+}
+
 char oneBlankGame::possibledir(int x, int y)
 {
 	if (tiles[y - 1][x].isempty() && y > 0) {
@@ -306,13 +311,11 @@ bool isInboard(int y, int x)
 	return false;
 }
 
-oneBlankGame::oneBlankGame(int x, int y):board(x,y)
-{
 
-}
-
+/*********************************************************************second game************************************************************************/
 rowChangeGame::rowChangeGame(int x, int y):board(x, y)
 {
+	tiles[boardwidth - 1][boardheight - 1] = visualtile(boardheight*boardwidth);
 }
 bool rowChangeGame::movetile(int x, int y, char dir)
 {
@@ -339,46 +342,34 @@ bool rowChangeGame::movetile(int x, int y, char dir)
 
 bool rowChangeGame::moveup(int x, int y)
 {
-	if (y == 0 || !tiles[y - 1][x].isempty()) {
-		return false;
+	for (int i = 0; i < boardheight-1; i++) {
+		swap(x, i, x, i + 1);
 	}
-	else {
-		swap(x, y, x, y - 1);
-		return true;
-	}
+	return true;
 }
 
 bool rowChangeGame::movedown(int x, int y)
 {
-	if (y == boardheight - 1 || !tiles[y + 1][x].isempty()) {
-		return false;
+	for (int i = boardheight - 1; i > 0; i--) {
+		swap(x, i, x, i - 1);
 	}
-	else {
-		swap(x, y, x, y + 1);
-		return true;
-	}
+	return true;
 }
 
 bool rowChangeGame::moveleft(int x, int y)
 {
-	if (x == 0 || !tiles[y][x - 1].isempty()) {
-		return false;
+	for (int i = 0; i < boardwidth-1; i++) {
+		swap(i, y, i+1, y);
 	}
-	else {
-		swap(x, y, x - 1, y);
-		return true;
-	}
+	return true;
 }
 
 bool rowChangeGame::moveright(int x, int y)
 {
-	if (x == boardwidth - 1 || !tiles[y][x + 1].isempty()) {
-		return false;
+	for (int i = boardwidth - 1; i > 0 ; i--) {
+		swap(i, y, i -1 , y);
 	}
-	else {
-		swap(x, y, x + 1, y);
-		return true;
-	}
+	return true;
 }
 char rowChangeGame::possibledir(int x, int y)
 {
@@ -458,8 +449,4 @@ void rowChangeGame::setEmpty()
 			}
 		}
 	}
-}
-bool rowChangeGame::movetile(int x, int y, char dir)
-{
-	return false;
 }
