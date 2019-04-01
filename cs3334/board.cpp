@@ -137,6 +137,7 @@ int board::inversions()
 		}
 		
 	}
+	delete arr;
 	/*
 
 	for (int i = 0; i < boardheight; i++) {
@@ -155,6 +156,45 @@ int board::inversions()
 		}
 	}
 	*/
+	return count;
+}
+
+int board::aiinversion()
+{
+	int count = 0;
+	int value;
+
+	visualtile ** arr = new visualtile*[boardwidth * boardheight];
+	this->alltiles(arr, boardwidth * boardheight);
+	for (int i = 0; i < boardwidth * boardheight; i++) {
+		for (int j = i + 1; j < boardwidth * boardheight; j++) {
+			if (arr[i]->isempty()) {
+				count++;
+			}
+			else if (arr[i]->getvalue() > arr[j]->getvalue()){
+				count++;
+			}
+		}
+
+	}
+	delete arr;
+	return count;
+}
+
+int board::aimanhattandistance()
+{
+	int count = 0;
+	int value;
+
+	visualtile ** arr = new visualtile*[boardwidth * boardheight];
+	this->alltiles(arr, boardwidth * boardheight);
+	for (int i = 0; i < boardwidth * boardheight; i++) {
+		if (!arr[i]->isempty()) {
+			count += abs(arr[i]->getvalue() - (i+1));
+		}
+		
+	}
+	delete arr;
 	return count;
 }
 

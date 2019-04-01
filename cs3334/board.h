@@ -20,6 +20,8 @@ public:
 	//int samecol(tile * t, tile[boardwidth]);
 
 	int inversions(); // return the inversion in the board
+	int aiinversion();
+	int aimanhattandistance();
 	char* toString();
 
 	void initalizePosition();

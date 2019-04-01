@@ -62,6 +62,10 @@ int main() {
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_mouse_event_source());
 
+
+	//ai setup
+	bot * solver = nullptr;
+
 	bool done = false;
 	while (!done) {
 		ALLEGRO_EVENT event;
@@ -86,7 +90,7 @@ int main() {
 				}
 			}
 
-			cout << game.inversions() << endl;
+			cout << "inv: "<< game.inversions() << " ai: " << game.aiinversion() << " man: " << game.aimanhattandistance() << endl;
 
 			delete tilelist;
 
@@ -100,15 +104,39 @@ int main() {
 
 					game.doMove(choice);
 				}
+				solver = nullptr;
 			}
 			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
 				cout << "solve" << endl;
-				bot solver = bot(&game);
-				//solver.print();
-				//if (!solver.needmove()) {
-					game.doMove(solver.findbest());
-				//}
-				cout <<  "current inversions: "<< game.inversions() << endl;
+				
+				if (solver == nullptr) { solver = new bot(&game); };
+				while (!solver->foundanswer()) {
+					solver->expand();
+				}
+				solver->loadbest();
+				cout << "bestpath: ";
+				for (int i = 0; i < solver->stepssize; i++) {
+					cout << solver->steps[i] << ", ";
+				}
+				cout << endl;
+				
+				game.doMove(solver->findbest());
+				cout << "open size: "  << solver->openlist.size() << endl;
+				cout << "closed size: " << solver->closed.size() << endl;
+				/*
+				if (solver == nullptr) {
+					solver = new bot(&game);
+					solver->buildtree();
+				}
+				else {
+					if (!solver->done()) {
+						game.doMove(solver->findbest());
+					}
+					else {
+						solver = nullptr;
+					}
+				}*/
+				cout <<  "current inversions: "<< game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto<< endl;
 			}
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
