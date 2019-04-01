@@ -435,14 +435,12 @@ char rowChangeGame::possibledir(int x, int y)
 	}
 	else
 		return 'o';
-
+}
 oneBlankGame::oneBlankGame(oneBlankGame * from) :board((board *)from)
 {
 	this->setEmpty();
 }
 
-oneBlankGame::oneBlankGame(int x, int y):board(x,y){
-}
 
 int rowChangeGame::numOfMoves()
 {
