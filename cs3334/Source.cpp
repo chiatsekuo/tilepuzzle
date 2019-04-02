@@ -19,6 +19,7 @@ void drawtile(int x,int y,int w,int h,int v);
 void drawblanktile(int x, int y, int w, int h);
 void drawtileimage(int x, int y, ALLEGRO_BITMAP* image);
 int oneblankgame();
+int wraparoundgame();
 
 
 int main() {
@@ -62,7 +63,7 @@ int main() {
 	al_register_event_source(queue, al_get_mouse_event_source());
 
 
-	oneblankgame();
+	wraparoundgame();
 }
 
 void drawtile(int x, int y, int w, int h, int v)
@@ -160,6 +161,176 @@ int oneblankgame()
 			game.alltiles(tilelist, boardwidth*boardheight);
 
 			game.move();
+
+			al_clear_to_color(al_map_rgb(255, 255, 255));
+
+			for (int i = 0; i < boardwidth*boardheight; i++) {
+				visualtile * dr = tilelist[i];
+				if (!dr->isempty()) {
+					drawtileimage(dr->getx(), dr->gety(), dr->getimage());
+					drawtile(dr->getx(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
+				}
+				else {
+					drawblanktile(dr->getx(), dr->gety(), dr->getw(), dr->geth());
+				}
+			}
+
+
+			al_flip_display();
+			delete tilelist;
+		}
+
+	}
+	return 0;
+}
+
+int wraparoundgame()
+{
+	rowChangeGame game = rowChangeGame(100, 100);
+	al_set_target_backbuffer(screen);
+	game.initalizePosition();
+	bot * solver = nullptr;
+	bool done = false;
+
+	int xdownpos=0;
+	int ydownpos=0;
+	visualtile * downtile=nullptr;
+	while (!done) {
+		ALLEGRO_EVENT event;
+		al_wait_for_event(queue, &event);
+
+		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			done = true;
+		}
+		else if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+			visualtile ** tilelist = new visualtile*[boardwidth*boardheight];
+			game.alltiles(tilelist, boardwidth*boardheight);
+			xdownpos = event.mouse.x;
+			ydownpos = event.mouse.y;
+
+			for (int i = 0; i < boardwidth*boardheight; i++) {
+				if (tilelist[i]->isinside(event.mouse.x, event.mouse.y)) {
+					downtile = tilelist[i];
+					break;
+				}
+			}
+			cout << "inv: " << game.inversions() << " ai: " << game.aiinversion() << " man: " << game.aimanhattandistance() << endl;
+			delete tilelist;
+		}
+		else if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
+			xdownpos = 0;
+			ydownpos = 0;
+			downtile = nullptr;
+		}
+		else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+			if (event.keyboard.keycode == ALLEGRO_KEY_R) {
+				for (int i = 0; i < 1000; i++) {
+					int possible = game.numOfMoves();
+
+					int choice = rand() % possible;
+
+					game.doMove(choice);
+				}
+				solver = nullptr;
+			}
+			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
+				cout << "solve" << endl;
+
+				/*if (solver == nullptr) { solver = new bot(&game); };
+				while (!solver->foundanswer()) {
+					solver->expand();
+				}
+				solver->loadbest();
+				cout << "bestpath: ";
+				for (int i = 0; i < solver->stepssize; i++) {
+					cout << solver->steps[i] << ", ";
+				}
+				cout << endl;
+
+				game.doMove(solver->findbest());
+				cout << "open size: " << solver->openlist.size() << endl;
+				cout << "closed size: " << solver->closed.size() << endl;
+				cout << "current inversions: " << game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto << endl;
+				*/
+			}
+		}
+		else if (event.type == ALLEGRO_EVENT_TIMER) {
+
+			visualtile ** tilelist = new visualtile*[boardwidth*boardheight];
+
+			game.alltiles(tilelist, boardwidth*boardheight);
+
+			ALLEGRO_MOUSE_STATE Mouse;
+			al_get_mouse_state(&Mouse);
+			if (al_mouse_button_down(&Mouse,1)) {
+				int changex = Mouse.x - xdownpos;
+				int changey = Mouse.y - ydownpos;
+				game.initalizePosition();
+				if (downtile) {
+					if (abs(changex) > abs(changey)) {
+						visualtile ** same = new visualtile*[boardwidth];
+						game.samerow(downtile,same);
+						for (int i = 0; i < boardwidth; i++) {
+							same[i]->adjx(changex);
+						}
+						if (abs(changex) > tilewidth / 2) {//make a move
+							int indexoftile=0;
+							for (int i = 0; i < boardwidth; i++) {
+								if (same[i] == downtile) {
+									indexoftile = i;
+									break;
+								}
+							}
+							if (changex > 0) {
+								game.movetile(game.boardx(downtile), game.boardy(downtile),'r');
+								downtile = same[(indexoftile+1)%boardwidth];//setup as if the move starts from a the tile to the side
+								xdownpos += tilewidth;//mouse the mouse to center over other tile
+							}
+							else{
+								game.movetile(game.boardx(downtile), game.boardy(downtile), 'l');
+								downtile = same[(indexoftile + boardwidth - 1) % boardwidth];
+								xdownpos -= tilewidth;
+							}
+						}
+						delete same;
+						
+						
+					}
+					else {
+						visualtile ** same = new visualtile*[boardheight];
+						game.samecol(downtile, same);
+						for (int i = 0; i < boardheight; i++) {
+							same[i]->adjy(changey);
+						}
+
+						if (abs(changey) > tileheight / 2) {//make a move
+							int indexoftile = 0;
+							for (int i = 0; i < boardheight; i++) {
+								if (same[i] == downtile) {
+									indexoftile = i;
+									break;
+								}
+							}
+							if (changey > 0) {
+								game.movetile(game.boardx(downtile), game.boardy(downtile), 'd');
+								downtile = same[(indexoftile + 1) % boardheight];//setup as if the move starts from a the tile to the side
+								ydownpos += tileheight;//mouse the mouse to center over other tile
+							}
+							else {
+								game.movetile(game.boardx(downtile), game.boardy(downtile), 'u');
+								downtile = same[(indexoftile + boardheight - 1) % boardheight];
+								ydownpos -= tileheight;
+							}
+						}
+						delete same;
+					}
+				}
+			}
+			else {
+				game.move();
+			}
+
+
 
 			al_clear_to_color(al_map_rgb(255, 255, 255));
 

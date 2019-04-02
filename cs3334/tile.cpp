@@ -96,18 +96,24 @@ bool visualtile::gopos(int x, int y)
 	if (this->x == x && this->y == y) {
 		return true;
 	}
-	if (this->x > x) {
+	if (this->x > speed+x) {
 		adjx(-speed);
 	}
-	else if(this->x < x) {
+	else if(this->x < x-speed) {
 		adjx(speed);
 	}
+	else {
+		setx(x);
+	}
 
-	if (this->y > y) {
+	if (this->y > speed+ y) {
 		adjy(-speed);
 	}
-	else if (this->y < y) {
+	else if (this->y < -speed+ y) {
 		adjy(speed);
+	}
+	else {
+		sety(y);
 	}
 	return false;
 }
