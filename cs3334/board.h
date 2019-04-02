@@ -16,8 +16,8 @@ public:
 	int boardx(visualtile * t);
 	int boardy(visualtile *);
 
-	int samerow(visualtile * t, visualtile[boardwidth]);
-	int samecol(visualtile * t, visualtile[boardheight]);
+	int samerow(visualtile * t, visualtile * fil[boardwidth]);
+	int samecol(visualtile * t, visualtile*fil[boardheight]);
 
 	int inversions(); // return the inversion in the board
 	int aiinversion();

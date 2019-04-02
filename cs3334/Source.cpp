@@ -12,11 +12,13 @@ using namespace std;
 
 ALLEGRO_DISPLAY * screen;
 ALLEGRO_FONT *font;
+ALLEGRO_EVENT_QUEUE * queue;
+ALLEGRO_TIMER * timer;
 
 void drawtile(int x,int y,int w,int h,int v);
 void drawblanktile(int x, int y, int w, int h);
 void drawtileimage(int x, int y, ALLEGRO_BITMAP* image);
-
+int oneblankgame();
 
 
 int main() {
@@ -38,17 +40,14 @@ int main() {
 		exit(-1);
 	}
 
-	oneBlankGame game = oneBlankGame(100, 100);
+	
 	//rowChangeGame game = rowChangeGame(100, 100);
-	al_set_target_backbuffer(screen);
-	cout << game.inversions() << endl;
-	game.initalizePosition();
+
 
 	font = al_load_ttf_font("consola.ttf", 72, 0);
 
 	screen = al_create_display(500,500);
-	ALLEGRO_EVENT_QUEUE * queue;
-	ALLEGRO_TIMER * timer;
+	
 
 	al_install_keyboard();
 	al_install_mouse();
@@ -63,125 +62,7 @@ int main() {
 	al_register_event_source(queue, al_get_mouse_event_source());
 
 
-	//ai setup
-	bot * solver = nullptr;
-
-	bool done = false;
-	while (!done) {
-		ALLEGRO_EVENT event;
-		al_wait_for_event(queue, &event);
-
-		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-			done = true;
-		}
-		else if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-
-			cout << "mouse at " << event.mouse.x << ", " << event.mouse.y << endl;
-			visualtile ** tilelist = new visualtile*[boardwidth*boardheight];
-			game.alltiles(tilelist, boardwidth*boardheight);
-
-			for (int i = 0; i < boardwidth*boardheight; i++) {
-				if (tilelist[i]->isinside(event.mouse.x, event.mouse.y)) {
-					int xclicked = game.boardx(tilelist[i]);
-					int yclicked = game.boardy(tilelist[i]);
-					//char dir = game.possibledir(xclicked,yclicked);
-					ALLEGRO_KEYBOARD_STATE keys;
-					al_get_keyboard_state(&keys);
-					if (al_key_down(&keys, ALLEGRO_KEY_LEFT)) {
-						game.movetile(xclicked, yclicked, 'l');
-					}
-					else if (al_key_down(&keys, ALLEGRO_KEY_RIGHT)) {
-						game.movetile(xclicked, yclicked, 'r');
-					}
-					else if (al_key_down(&keys, ALLEGRO_KEY_UP)) {
-						game.movetile(xclicked, yclicked, 'u');
-					}
-					else if (al_key_down(&keys, ALLEGRO_KEY_DOWN)) {
-						game.movetile(xclicked, yclicked, 'd');
-					}
-					
-					break;
-				}
-			}
-
-			cout << "inv: "<< game.inversions() << " ai: " << game.aiinversion() << " man: " << game.aimanhattandistance() << endl;
-
-			delete tilelist;
-
-		}
-		else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-			if (event.keyboard.keycode == ALLEGRO_KEY_R) {
-				for (int i = 0; i < 1000; i++) {
-					int possible = game.numOfMoves();
-
-					int choice = rand() % possible;
-
-					game.doMove(choice);
-				}
-				solver = nullptr;
-			}
-			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
-				cout << "solve" << endl;
-				
-				if (solver == nullptr) { solver = new bot(&game); };
-				while (!solver->foundanswer()) {
-					solver->expand();
-				}
-				solver->loadbest();
-				cout << "bestpath: ";
-				for (int i = 0; i < solver->stepssize; i++) {
-					cout << solver->steps[i] << ", ";
-				}
-				cout << endl;
-				
-				game.doMove(solver->findbest());
-				cout << "open size: "  << solver->openlist.size() << endl;
-				cout << "closed size: " << solver->closed.size() << endl;
-				/*
-				if (solver == nullptr) {
-					solver = new bot(&game);
-					solver->buildtree();
-				}
-				else {
-					if (!solver->done()) {
-						game.doMove(solver->findbest());
-					}
-					else {
-						solver = nullptr;
-					}
-				}*/
-				cout <<  "current inversions: "<< game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto<< endl;
-			}
-		}
-		else if (event.type == ALLEGRO_EVENT_TIMER) {
-
-			visualtile ** tilelist = new visualtile*[boardwidth*boardheight];
-			
-			game.alltiles(tilelist, boardwidth*boardheight);
-
-			game.move();
-
-			al_clear_to_color(al_map_rgb(255, 255, 255));
-			
-			for (int i = 0; i < boardwidth*boardheight; i++) {
-				visualtile * dr = tilelist[i];
-				if (!dr->isempty()){
-					drawtileimage(dr->getx(), dr->gety(), dr->getimage());
-					drawtile(dr->getx(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
-				}
-				else {
-					drawblanktile(dr->getx(), dr->gety(), dr->getw(), dr->geth());
-				}
-			}
-			
-
-			al_flip_display();
-			delete tilelist;
-		}
-
-	}
-	//system("pause");
-
+	oneblankgame();
 }
 
 void drawtile(int x, int y, int w, int h, int v)
@@ -207,4 +88,97 @@ void drawtileimage(int x, int y, ALLEGRO_BITMAP * image)
 {
 	al_draw_bitmap(image, x, y, 0);
 
+}
+
+int oneblankgame()
+{
+	oneBlankGame game = oneBlankGame(100, 100);
+	al_set_target_backbuffer(screen);
+	game.initalizePosition();
+	bot * solver = nullptr;
+	bool done = false;
+	while (!done) {
+		ALLEGRO_EVENT event;
+		al_wait_for_event(queue, &event);
+
+		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			done = true;
+		}
+		else if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+			visualtile ** tilelist = new visualtile*[boardwidth*boardheight];
+			game.alltiles(tilelist, boardwidth*boardheight);
+
+			for (int i = 0; i < boardwidth*boardheight; i++) {
+				if (tilelist[i]->isinside(event.mouse.x, event.mouse.y)) {
+					int xclicked = game.boardx(tilelist[i]);
+					int yclicked = game.boardy(tilelist[i]);
+					char dir = game.possibledir(xclicked,yclicked);
+					game.movetile(xclicked, yclicked, dir);
+					ALLEGRO_KEYBOARD_STATE keys;
+					al_get_keyboard_state(&keys);
+					break;
+				}
+			}
+			cout << "inv: " << game.inversions() << " ai: " << game.aiinversion() << " man: " << game.aimanhattandistance() << endl;
+			delete tilelist;
+		}
+		else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+			if (event.keyboard.keycode == ALLEGRO_KEY_R) {
+				for (int i = 0; i < 1000; i++) {
+					int possible = game.numOfMoves();
+
+					int choice = rand() % possible;
+
+					game.doMove(choice);
+				}
+				solver = nullptr;
+			}
+			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
+				cout << "solve" << endl;
+
+				if (solver == nullptr) { solver = new bot(&game); };
+				while (!solver->foundanswer()) {
+					solver->expand();
+				}
+				solver->loadbest();
+				cout << "bestpath: ";
+				for (int i = 0; i < solver->stepssize; i++) {
+					cout << solver->steps[i] << ", ";
+				}
+				cout << endl;
+
+				game.doMove(solver->findbest());
+				cout << "open size: " << solver->openlist.size() << endl;
+				cout << "closed size: " << solver->closed.size() << endl;
+				cout << "current inversions: " << game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto << endl;
+			}
+		}
+		else if (event.type == ALLEGRO_EVENT_TIMER) {
+
+			visualtile ** tilelist = new visualtile*[boardwidth*boardheight];
+
+			game.alltiles(tilelist, boardwidth*boardheight);
+
+			game.move();
+
+			al_clear_to_color(al_map_rgb(255, 255, 255));
+
+			for (int i = 0; i < boardwidth*boardheight; i++) {
+				visualtile * dr = tilelist[i];
+				if (!dr->isempty()) {
+					drawtileimage(dr->getx(), dr->gety(), dr->getimage());
+					drawtile(dr->getx(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
+				}
+				else {
+					drawblanktile(dr->getx(), dr->gety(), dr->getw(), dr->geth());
+				}
+			}
+
+
+			al_flip_display();
+			delete tilelist;
+		}
+
+	}
+	return 0;
 }

@@ -220,6 +220,24 @@ int board::boardy(visualtile * t)
 	}
 }
 
+int board::samerow(visualtile * t, visualtile*fil[boardwidth])
+{
+	int y = boardy(t);
+	for (int i = 0; i < boardwidth; i++) {
+		fil[i]=&tiles[y][i];
+	}
+	return boardwidth;
+}
+
+int board::samecol(visualtile * t, visualtile * fil[boardheight])
+{
+	int x = boardx(t);
+	for (int i = 0; i < boardheight; i++) {
+		fil[i] = &tiles[i][x];
+	}
+	return boardheight;
+}
+
 char * board::toString()
 {
 	char * arr = new char[3*boardheight*boardwidth + 1];
