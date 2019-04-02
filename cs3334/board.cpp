@@ -42,6 +42,16 @@ void board::swap(int x1, int y1, int x2, int y2)
 	tiles[y2][x2] = temp;
 }
 
+int board::getx()
+{
+	return x;
+}
+
+int board::gety()
+{
+	return y;
+}
+
 bool oneBlankGame::movetile(int x, int y, char dir)
 {
 	switch (dir) {

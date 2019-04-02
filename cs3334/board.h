@@ -9,7 +9,8 @@ public:
 	board(int x,int y);
 	board(board*from);
 	void swap(int x1, int y1, int x2, int y2);//moves tiles from two locations
-	
+	int getx();
+	int gety();
 
 
 	int alltiles(visualtile ** t,int n);//fill the list with tile pointers &tiles[][]

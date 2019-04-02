@@ -18,6 +18,7 @@ ALLEGRO_TIMER * timer;
 void drawtile(int x,int y,int w,int h,int v);
 void drawblanktile(int x, int y, int w, int h);
 void drawtileimage(int x, int y, ALLEGRO_BITMAP* image);
+void drawgame(board*game);
 int oneblankgame();
 int wraparoundgame();
 
@@ -89,6 +90,47 @@ void drawtileimage(int x, int y, ALLEGRO_BITMAP * image)
 {
 	al_draw_bitmap(image, x, y, 0);
 
+}
+
+void drawgame(board * game)
+{
+	visualtile ** tilelist = new visualtile*[boardwidth*boardheight];
+	game->alltiles(tilelist, boardwidth*boardheight);
+
+	for (int i = 0; i < boardwidth*boardheight; i++) {
+		visualtile * dr = tilelist[i];
+		if (!dr->isempty()) {
+			drawtileimage(dr->getx(), dr->gety(), dr->getimage());
+			drawtile(dr->getx(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
+			if (dr->getx() < game->getx()) {
+				drawtileimage(dr->getx()+game->getwidth(), dr->gety(), dr->getimage());
+				drawtile(dr->getx()+game->getwidth(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
+			}
+			if (dr->getx()+tilewidth > game->getx()+game->getwidth()) {
+				drawtileimage(dr->getx() - game->getwidth(), dr->gety(), dr->getimage());
+				drawtile(dr->getx() - game->getwidth(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
+			}
+
+			if (dr->gety() < game->gety()) {
+				drawtileimage(dr->getx(), dr->gety()+game->getheight(), dr->getimage());
+				drawtile(dr->getx(), dr->gety() + game->getheight(), dr->getw(), dr->geth(), dr->getvalue());
+			}
+			if (dr->gety() + tileheight > game->gety() + game->getheight()) {
+				drawtileimage(dr->getx() , dr->gety() - game->getheight(), dr->getimage());
+				drawtile(dr->getx(), dr->gety() - game->getheight(), dr->getw(), dr->geth(), dr->getvalue());
+			}
+		}
+		else {
+			drawblanktile(dr->getx(), dr->gety(), dr->getw(), dr->geth());
+		}
+
+	}
+	
+	al_draw_filled_rectangle(game->getx()-5, game->gety(), game->getx() + game->getwidth()+5, game->gety() - tileheight,al_map_rgb(255,255,255));
+	al_draw_filled_rectangle(game->getx()-5, game->gety()+game->getwidth(), game->getx() + game->getwidth()+5, game->gety() + game->getwidth() + tileheight, al_map_rgb(255, 255, 255));
+	al_draw_filled_rectangle(game->getx(), game->gety()-5, game->getx()-tilewidth, game->gety()+game->getheight()+5, al_map_rgb(255, 255, 255));
+	al_draw_filled_rectangle(game->getx()+game->getwidth(), game->gety() - 5, game->getx() + game->getwidth() + tilewidth, game->gety() + game->getheight()+5, al_map_rgb(255, 255, 255));
+	delete tilelist;
 }
 
 int oneblankgame()
@@ -334,16 +376,7 @@ int wraparoundgame()
 
 			al_clear_to_color(al_map_rgb(255, 255, 255));
 
-			for (int i = 0; i < boardwidth*boardheight; i++) {
-				visualtile * dr = tilelist[i];
-				if (!dr->isempty()) {
-					drawtileimage(dr->getx(), dr->gety(), dr->getimage());
-					drawtile(dr->getx(), dr->gety(), dr->getw(), dr->geth(), dr->getvalue());
-				}
-				else {
-					drawblanktile(dr->getx(), dr->gety(), dr->getw(), dr->geth());
-				}
-			}
+			drawgame(&game);
 
 
 			al_flip_display();
