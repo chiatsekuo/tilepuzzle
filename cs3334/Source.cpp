@@ -63,7 +63,7 @@ int main() {
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_mouse_event_source());
 
-
+	//oneblankgame();
 	wraparoundgame();
 }
 
@@ -89,7 +89,6 @@ void drawblanktile(int x, int y, int w, int h)
 void drawtileimage(int x, int y, ALLEGRO_BITMAP * image)
 {
 	al_draw_bitmap(image, x, y, 0);
-
 }
 
 void drawgame(board * game)

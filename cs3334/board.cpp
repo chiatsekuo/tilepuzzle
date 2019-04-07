@@ -7,6 +7,14 @@ board::board(int x, int y)
 {
 	this->x = x;
 	this->y = y;
+
+	wholeimage = al_create_bitmap(getwidth(), getheight());
+	al_set_target_bitmap(wholeimage);
+	ALLEGRO_BITMAP * image = al_load_bitmap("image.jpg");
+	al_draw_scaled_bitmap(image,0,0,al_get_bitmap_width(image), al_get_bitmap_height(image),0,0, getwidth(), getheight(),0);
+
+
+
 	for (int i = 0; i < boardwidth; i++) {
 		for (int j = 0; j < boardheight; j++) {
 			if (i == boardwidth - 1 && j == boardheight - 1) {
@@ -15,8 +23,10 @@ board::board(int x, int y)
 			else {
 				tiles[j][i] = visualtile((j)*boardwidth + i + 1);
 			}
+			tiles[j][i].setimage(al_create_sub_bitmap(wholeimage, i*tilewidth, j*tileheight, tilewidth, tileheight));
 		}
 	}
+	al_destroy_bitmap(image);
 }
 
 board::board(board * from)
@@ -391,7 +401,9 @@ bool isInboard(int y, int x)
 /*********************************************************************second game************************************************************************/
 rowChangeGame::rowChangeGame(int x, int y):board(x, y)
 {
+	ALLEGRO_BITMAP*temp = tiles[boardwidth - 1][boardheight - 1].getimage();
 	tiles[boardwidth - 1][boardheight - 1] = visualtile(boardheight*boardwidth);
+	tiles[boardwidth - 1][boardheight - 1].setimage(temp);
 }
 bool rowChangeGame::movetile(int x, int y, char dir)
 {
@@ -478,7 +490,7 @@ int rowChangeGame::numOfMoves()
 	if (isInboard(empty, emptx + 1))num++;
 	if (isInboard(empty + 1, emptx))num++;
 	if (isInboard(empty, emptx + 1))num++;
-	return num;
+	return 12;
 }
 
 bool rowChangeGame::doMove(int i)

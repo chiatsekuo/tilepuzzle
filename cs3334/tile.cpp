@@ -14,11 +14,6 @@ visualtile::visualtile():basetile()
 {
 }
 visualtile::visualtile(int v): basetile(v){
-	image = al_create_bitmap(100, 100);
-	ALLEGRO_BITMAP * temp = al_load_bitmap("image.jpg");
-	
-	al_set_target_bitmap(image);
-	al_draw_scaled_bitmap(temp, 0, 0, al_get_bitmap_width(temp), al_get_bitmap_height(temp), 0, 0, tilewidth, tileheight, 0);
 }
 
 basetile::basetile()
@@ -132,6 +127,11 @@ bool visualtile::isinside(int x, int y)
 ALLEGRO_BITMAP * visualtile::getimage()
 {
 	return image;
+}
+
+void visualtile::setimage(ALLEGRO_BITMAP * im)
+{
+	image = im;
 }
 
 

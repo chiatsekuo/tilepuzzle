@@ -36,6 +36,7 @@ public:
 	visualtile tiles[boardheight][boardwidth];
 private:
 	int x, y;
+	ALLEGRO_BITMAP * wholeimage;
 };
 
 class oneBlankGame: public board {

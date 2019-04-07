@@ -42,7 +42,7 @@ public:
 	//add width and height in defilne ^
 	bool isinside(int x, int y);// true if point is in side
 	ALLEGRO_BITMAP* getimage();
-
+	void setimage(ALLEGRO_BITMAP*im);
 
 private:
 	ALLEGRO_BITMAP * image;
