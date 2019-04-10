@@ -23,8 +23,9 @@ void drawgame(board*game);
 int oneblankgame();
 int wraparoundgame();
 
-bot * solver = nullptr;
 
+bot * solver = nullptr;
+bot2 * solver2 = nullptr;
 
 
 int main() {
@@ -45,10 +46,6 @@ int main() {
 	if (!al_init_image_addon()) {
 		exit(-1);
 	}
-
-	
-	//rowChangeGame game = rowChangeGame(100, 100);
-
 
 	font = al_load_ttf_font("consola.ttf", 72, 0);
 
@@ -173,33 +170,42 @@ int oneblankgame()
 		}
 		else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 			if (event.keyboard.keycode == ALLEGRO_KEY_R) {
-				for (int i = 0; i < 100; i++) {
-					int possible = game.numOfMoves();
+				if (game.aiinversion() == 0) {
+					for (int i = 0; i < 40; i++) {
+						int possible = game.numOfMoves();
 
-					int choice = rand() % possible;
+						int choice = rand() % possible;
 
-					game.doMove(choice);
+						game.doMove(choice);
+					}
+					solver = nullptr;
 				}
-				solver = nullptr;
 			}
 			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
-				cout << "solve" << endl;
+				if (game.aiinversion() != 0) {
+						cout << "solve" << endl;
 
-				if (solver == nullptr) { solver = new bot(&game); };
-				while (!solver->foundanswer()) {
-					solver->expand();
-				}
-				solver->loadbest();
-				cout << "bestpath: ";
-				for (int i = 0; i < solver->stepssize; i++) {
-					cout << solver->steps[i] << ", ";
-				}
-				cout << endl;
+						if (solver == nullptr) { solver = new bot(&game); };
+						while (!solver->foundanswer()) {
+							solver->sort();
+							for (int i = 0; i < 10; i++) {
+								solver->expand();
+							}
+						
+						}
+						solver->loadbest();
+						cout << "bestpath: ";
+						for (int i = 0; i < solver->stepssize; i++) {
+							cout << solver->steps[i] << ", ";
+						}
+						cout << endl;
 
-				game.doMove(solver->findbest());
-				cout << "open size: " << solver->openlist.size() << endl;
-				cout << "closed size: " << solver->closed.size() << endl;
-				cout << "current inversions: " << game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto << endl;
+						game.doMove(solver->findbest());
+						cout << "open size: " << solver->openlist.size() << endl;
+						cout << "closed size: " << solver->closed.size() << endl;
+						cout << "current inversions: " << game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto << endl;
+						if (game.aiinversion() == 0) { solver = nullptr; };
+				}
 			}
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {
@@ -238,10 +244,12 @@ int oneblankgame()
 
 int wraparoundgame()
 {
-	rowChangeGame game = rowChangeGame(100, 100);
+	rowChangeGame game = rowChangeGame(100, 150);
+	int w = game.getwidth() / 2;
+	game.setx(al_get_display_width(screen) / 2 - w);
 	al_set_target_backbuffer(screen);
 	game.initalizePosition();
-	bot * solver = nullptr;
+	
 	bool done = false;
 
 	int xdownpos=0;
@@ -276,32 +284,32 @@ int wraparoundgame()
 		}
 		else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 			if (event.keyboard.keycode == ALLEGRO_KEY_R) {
-				for (int i = 0; i < 1000; i++) {
+				for (int i = 0; i < 25; i++) {
 					int possible = game.numOfMoves();
 
 					int choice = rand() % possible;
 
 					game.doMove(choice);
 				}
-				solver = nullptr;
+				solver2 = nullptr;
 			}
 			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
 				cout << "solve" << endl;
 
-				if (solver == nullptr) { solver = new bot(&game); };
-				while (!solver->foundanswer()) {
-					solver->expand();
+				if (solver2 == nullptr) { solver2 = new bot2(&game); };
+				while (!solver2->foundanswer()) {
+					solver2->expand();
 				}
-				solver->loadbest();
+				solver2->loadbest();
 				cout << "bestpath: ";
-				for (int i = 0; i < solver->stepssize; i++) {
-					cout << solver->steps[i] << ", ";
+				for (int i = 0; i < solver2->stepssize; i++) {
+					cout << solver2->steps[i] << ", ";
 				}
 				cout << endl;
 
-				game.doMove(solver->findbest());
-				cout << "open size: " << solver->openlist.size() << endl;
-				cout << "closed size: " << solver->closed.size() << endl;
+				game.doMove(solver2->findbest());
+				cout << "open size: " << solver2->openlist.size() << endl;
+				cout << "closed size: " << solver2->closed.size() << endl;
 				cout << "current inversions: " << game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto << endl;
 				
 			}
@@ -386,11 +394,10 @@ int wraparoundgame()
 
 			al_clear_to_color(al_map_rgb(255, 255, 255));
 
-			string towrite = string("");
-			towrite += string("inversions: ");
-			towrite += string("" + game.inversions());
-			al_draw_text(font, al_map_rgb(0, 0, 0), al_get_display_width(screen) / 2,50,ALLEGRO_ALIGN_CENTER,towrite.c_str());
 			drawgame(&game);
+			string towrite = string("inversions: " + to_string(game.inversions()));
+
+			al_draw_text(font, al_map_rgb(0, 0, 0), al_get_display_width(screen) / 2, 50, ALLEGRO_ALIGN_CENTER, towrite.c_str());
 
 
 			al_flip_display();

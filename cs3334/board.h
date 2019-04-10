@@ -26,15 +26,13 @@ public:
 	int aiinversion();
 	int aimanhattandistance();
 	char* toString();
-
+	
+	bool issame(board * other);
 	void initalizePosition();
 	void move();
 
 	int getwidth();
 	int getheight();
-
-	virtual int numOfMoves();
-	virtual bool doMove(int i);
 
 	visualtile tiles[boardheight][boardwidth];
 private:
@@ -66,6 +64,7 @@ class rowChangeGame : public board {
 
 public:
 	rowChangeGame(int x, int y);
+	rowChangeGame(rowChangeGame*from);
 
 	bool movetile(int x, int y, char dir);//should use bellow
 	bool moveup(int x, int y);//should check for empty
