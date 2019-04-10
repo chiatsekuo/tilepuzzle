@@ -183,28 +183,40 @@ int oneblankgame()
 			}
 			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
 				if (game.aiinversion() != 0) {
+
 						cout << "solve" << endl;
 
-						if (solver == nullptr) { solver = new bot(&game); };
-						while (!solver->foundanswer()) {
-							solver->sort();
-							for (int i = 0; i < 10; i++) {
-								solver->expand();
-							}
-						
-						}
-						solver->loadbest();
-						cout << "bestpath: ";
-						for (int i = 0; i < solver->stepssize; i++) {
-							cout << solver->steps[i] << ", ";
-						}
-						cout << endl;
+						if (solver == nullptr) {
+							solver = new bot(&game);
+							while (!solver->foundanswer()) {
+								solver->sort();
+								for (int i = 0; i < 10; i++) {
+									solver->expand();
+								}
 
-						game.doMove(solver->findbest());
-						cout << "open size: " << solver->openlist.size() << endl;
-						cout << "closed size: " << solver->closed.size() << endl;
-						cout << "current inversions: " << game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto << endl;
-						if (game.aiinversion() == 0) { solver = nullptr; };
+							}
+							solver->loadbest();
+							cout << "bestpath: ";
+							for (int i = 0; i < solver->stepssize; i++) {
+								cout << solver->steps[i] << ", ";
+							}
+							cout << endl;
+
+							
+							cout << "open size: " << solver->openlist.size() << endl;
+							cout << "closed size: " << solver->closed.size() << endl;
+							cout << "current inversions: " << game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto << endl;
+							if (game.aiinversion() == 0) { solver = nullptr; };
+						}
+						else {
+							game.doMove(solver->findbest());
+							if (game.aiinversion() == 0) {
+								solver = nullptr;
+							}
+						}
+				}
+				else {
+					solver = nullptr;
 				}
 			}
 		}
@@ -284,34 +296,57 @@ int wraparoundgame()
 		}
 		else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 			if (event.keyboard.keycode == ALLEGRO_KEY_R) {
-				for (int i = 0; i < 25; i++) {
-					int possible = game.numOfMoves();
+				if (game.aiinversion() == 0) {
+					for (int i = 0; i < 25; i++) {
+						int possible = game.numOfMoves();
 
-					int choice = rand() % possible;
+						int choice = rand() % possible;
 
-					game.doMove(choice);
+						game.doMove(choice);
+					}
+					solver2 = nullptr;
 				}
-				solver2 = nullptr;
 			}
 			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
-				cout << "solve" << endl;
+				if (game.aiinversion() != 0) {
+					
 
-				if (solver2 == nullptr) { solver2 = new bot2(&game); };
-				while (!solver2->foundanswer()) {
-					solver2->expand();
-				}
-				solver2->loadbest();
-				cout << "bestpath: ";
-				for (int i = 0; i < solver2->stepssize; i++) {
-					cout << solver2->steps[i] << ", ";
-				}
-				cout << endl;
+					if (solver2 == nullptr) {
+						cout << "solveing" << endl;
+						solver2 = new bot2(&game);
+						while (!solver2->foundanswer()) {
+							//solver2->sort();
+							for (int i = 0; i < 10; i++) {
+								solver2->expand();
+							}
 
-				game.doMove(solver2->findbest());
-				cout << "open size: " << solver2->openlist.size() << endl;
-				cout << "closed size: " << solver2->closed.size() << endl;
-				cout << "current inversions: " << game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto << endl;
-				
+						}
+						solver2->loadbest();
+						cout << "bestpath: ";
+						for (int i = 0; i < solver2->stepssize; i++) {
+							cout << solver2->steps[i] << ", ";
+						}
+						cout << endl;
+
+						
+						cout << "open size: " << solver2->openlist.size() << endl;
+						cout << "closed size: " << solver2->closed.size() << endl;
+						cout << "current inversions: " << game.inversions() << " depth of search: " << solver2->depth << " solved to: " << solver2->solvedto << endl;
+						if (game.aiinversion() == 0) {
+							solver2 = nullptr;
+						}
+					}
+					else {
+						game.doMove(solver2->findbest());
+						if (game.aiinversion() == 0) {
+							solver2 = nullptr;
+						}
+						
+					}
+				}
+				else {
+					solver2 = nullptr;
+				}
 			}
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {

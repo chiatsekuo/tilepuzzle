@@ -52,6 +52,7 @@ public:
 	bot2(rowChangeGame*current);
 	int makechildren(gamestate2  * self);
 	int expand();
+	int sort();
 	bool foundanswer();
 	int loadbest();
 	int findbest();
@@ -63,5 +64,6 @@ public:
 	int stepssize = 0;
 	int steps[50] = { 0 };
 	int index = 0;
+	int ming = 0;
 	
 };

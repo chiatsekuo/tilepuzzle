@@ -155,16 +155,47 @@ int bot2::makechildren(gamestate2 * self)
 
 int bot2::expand()
 {
-	int minindex = 0;
-	for (int i = 0; i < openlist.size(); i++) {
-		if (openlist[i].f < openlist[minindex].f) {
+	int minindex = -1;
+	for (int i = openlist.size() - 1; i > -1; i--) {
+		if (openlist[i].f <= ming) {
 			minindex = i;
+			ming = openlist[i].f;
+			break;
 		}
 	}
-	closed.push_back(openlist[minindex]);
-	openlist.erase(openlist.begin() + minindex);
-	makechildren(&closed[closed.size() - 1]);
+	if (minindex != -1) {
+		for (int i = 0; i < closed.size(); i++) {
+			if (openlist[minindex].state->issame(closed[i].state)) {
+				openlist.erase(openlist.begin() + minindex);
+				return 0;
+			}
+		}
+		ming--;
+		closed.push_back(openlist[minindex]);
+		openlist.erase(openlist.begin() + minindex);
+		makechildren(&closed[closed.size() - 1]);
+	}
+	else {
+		ming++;
+	}
 	return 0;
+}
+
+int bot2::sort()
+{
+
+		for (int i = 0; i < openlist.size(); i++) {
+			for (int ii = i; ii > 0; ii--) {
+				if (openlist[ii].f > openlist[ii - 1].f) {
+					gamestate2 temp = openlist[ii];
+					openlist[ii] = openlist[ii - 1];
+					openlist[ii - 1] = temp;
+				}
+
+			}
+		}
+		return 0;
+
 }
 
 bool bot2::foundanswer()
