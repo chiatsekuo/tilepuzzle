@@ -62,6 +62,18 @@ int board::gety()
 	return y;
 }
 
+int board::setx(int v)
+{
+	x = v;
+	return 0;
+}
+
+int board::sety(int v)
+{
+	y = v;
+	return 0;
+}
+
 bool oneBlankGame::movetile(int x, int y, char dir)
 {
 	switch (dir) {

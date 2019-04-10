@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -21,6 +22,9 @@ void drawtileimage(int x, int y, ALLEGRO_BITMAP* image);
 void drawgame(board*game);
 int oneblankgame();
 int wraparoundgame();
+
+bot * solver = nullptr;
+
 
 
 int main() {
@@ -48,7 +52,7 @@ int main() {
 
 	font = al_load_ttf_font("consola.ttf", 72, 0);
 
-	screen = al_create_display(500,500);
+	screen = al_create_display(800,640);
 	
 
 	al_install_keyboard();
@@ -63,8 +67,8 @@ int main() {
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_mouse_event_source());
 
-	//oneblankgame();
-	wraparoundgame();
+	oneblankgame();
+	//wraparoundgame();
 }
 
 void drawtile(int x, int y, int w, int h, int v)
@@ -134,10 +138,13 @@ void drawgame(board * game)
 
 int oneblankgame()
 {
-	oneBlankGame game = oneBlankGame(100, 100);
+	oneBlankGame game = oneBlankGame(100, 150);
+	int w = game.getwidth() / 2;
+	game.setx(al_get_display_width(screen)/2 - w);
+	
 	al_set_target_backbuffer(screen);
 	game.initalizePosition();
-	bot * solver = nullptr;
+	
 	bool done = false;
 	while (!done) {
 		ALLEGRO_EVENT event;
@@ -166,7 +173,7 @@ int oneblankgame()
 		}
 		else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 			if (event.keyboard.keycode == ALLEGRO_KEY_R) {
-				for (int i = 0; i < 1000; i++) {
+				for (int i = 0; i < 100; i++) {
 					int possible = game.numOfMoves();
 
 					int choice = rand() % possible;
@@ -204,6 +211,10 @@ int oneblankgame()
 			game.move();
 
 			al_clear_to_color(al_map_rgb(255, 255, 255));
+
+			string towrite = string("inversions: "+to_string(game.inversions()));
+
+			al_draw_text(font, al_map_rgb(0, 0, 0), al_get_display_width(screen) / 2, 50, ALLEGRO_ALIGN_CENTER, towrite.c_str());
 
 			for (int i = 0; i < boardwidth*boardheight; i++) {
 				visualtile * dr = tilelist[i];
@@ -375,6 +386,10 @@ int wraparoundgame()
 
 			al_clear_to_color(al_map_rgb(255, 255, 255));
 
+			string towrite = string("");
+			towrite += string("inversions: ");
+			towrite += string("" + game.inversions());
+			al_draw_text(font, al_map_rgb(0, 0, 0), al_get_display_width(screen) / 2,50,ALLEGRO_ALIGN_CENTER,towrite.c_str());
 			drawgame(&game);
 
 

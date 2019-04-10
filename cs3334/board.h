@@ -11,6 +11,8 @@ public:
 	void swap(int x1, int y1, int x2, int y2);//moves tiles from two locations
 	int getx();
 	int gety();
+	int setx(int v);
+	int sety(int v);
 
 
 	int alltiles(visualtile ** t,int n);//fill the list with tile pointers &tiles[][]
