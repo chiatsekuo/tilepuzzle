@@ -49,7 +49,12 @@ int main() {
 
 	font = al_load_ttf_font("consola.ttf", 72, 0);
 
-	screen = al_create_display(800,640);
+	cout << "oneBlank game(0)" << endl;
+	cout << "wrapAround game(1)" << endl;
+	cout << "choice: " << flush;
+	int choice = 0;
+	cin >> choice;
+
 	
 
 	al_install_keyboard();
@@ -59,13 +64,21 @@ int main() {
 	timer = al_create_timer(1.0 / 20.0);
 
 	al_start_timer(timer);
+	screen = al_create_display(800, 640);
 	al_register_event_source(queue, al_get_display_event_source(screen));
 	al_register_event_source(queue, al_get_timer_event_source(timer));
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_mouse_event_source());
 
-	oneblankgame();
-	//wraparoundgame();
+
+	if (choice == 0) {
+		oneblankgame();
+	}
+	else if (choice == 1) {
+		wraparoundgame();
+	}
+	
+	
 }
 
 void drawtile(int x, int y, int w, int h, int v)
@@ -230,7 +243,7 @@ int oneblankgame()
 
 			al_clear_to_color(al_map_rgb(255, 255, 255));
 
-			string towrite = string("inversions: "+to_string(game.inversions()));
+			string towrite = string("Inversions: "+to_string(game.inversions()));
 
 			al_draw_text(font, al_map_rgb(0, 0, 0), al_get_display_width(screen) / 2, 50, ALLEGRO_ALIGN_CENTER, towrite.c_str());
 
@@ -430,7 +443,7 @@ int wraparoundgame()
 			al_clear_to_color(al_map_rgb(255, 255, 255));
 
 			drawgame(&game);
-			string towrite = string("inversions: " + to_string(game.inversions()));
+			string towrite = string("Inversions: " + to_string(game.inversions()));
 
 			al_draw_text(font, al_map_rgb(0, 0, 0), al_get_display_width(screen) / 2, 50, ALLEGRO_ALIGN_CENTER, towrite.c_str());
 
