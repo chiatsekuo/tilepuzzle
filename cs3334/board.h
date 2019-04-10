@@ -33,7 +33,8 @@ public:
 	int getwidth();
 	int getheight();
 
-	
+	virtual int numOfMoves();
+	virtual bool doMove(int i);
 
 	visualtile tiles[boardheight][boardwidth];
 private:

@@ -288,7 +288,7 @@ int wraparoundgame()
 			else if (event.keyboard.keycode == ALLEGRO_KEY_S) {
 				cout << "solve" << endl;
 
-				/*if (solver == nullptr) { solver = new bot(&game); };
+				if (solver == nullptr) { solver = new bot(&game); };
 				while (!solver->foundanswer()) {
 					solver->expand();
 				}
@@ -303,7 +303,7 @@ int wraparoundgame()
 				cout << "open size: " << solver->openlist.size() << endl;
 				cout << "closed size: " << solver->closed.size() << endl;
 				cout << "current inversions: " << game.inversions() << " depth of search: " << solver->depth << " solved to: " << solver->solvedto << endl;
-				*/
+				
 			}
 		}
 		else if (event.type == ALLEGRO_EVENT_TIMER) {

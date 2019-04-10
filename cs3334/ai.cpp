@@ -167,7 +167,7 @@ void gamestate::clearbelow()
 }
 */
 
-bot::bot(oneBlankGame * current)
+bot::bot(board * current)
 {
 	openlist.push_back(makegamestate(current));
 	openlist[0].g = 0;
@@ -186,7 +186,7 @@ int bot::makechildren(gamestate * self)
 		}
 		add.steps[self->g] = i;
 		add.g = self->g + 1;
-		add.state = new oneBlankGame(self->state);
+		add.state = new board(self->state);
 		add.state->doMove(i);
 		add.h = add.state->aimanhattandistance();
 		add.f = add.h + add.g;
@@ -244,7 +244,7 @@ void clear(gamestate * s)
 	delete s->state;
 }
 
-gamestate makegamestate(oneBlankGame*game)
+gamestate makegamestate(board*game)
 {
 	gamestate end;
 	end.state = game;

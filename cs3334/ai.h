@@ -10,7 +10,7 @@
 
 struct gamestate{
 
-	oneBlankGame*state = nullptr;
+	board*state = nullptr;
 	int f, h, g;
 	int steps[50] = {};
 };
@@ -24,11 +24,11 @@ void clearbelow(gamestate * self);
 
 void clear(gamestate * s);
 
-gamestate makegamestate(oneBlankGame*current);
+gamestate makegamestate(board*current);
 class bot {
 
 public:
-	bot(oneBlankGame*current);
+	bot(board*current);
 	int makechildren(gamestate  * self);
 	int expand();
 	
