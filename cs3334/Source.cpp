@@ -325,7 +325,7 @@ int wraparoundgame()
 					
 
 					if (solver2 == nullptr) {
-						cout << "solveing" << endl;
+						cout << "solving" << endl;
 						solver2 = new bot2(&game);
 						while (!solver2->foundanswer()) {
 							//solver2->sort();
