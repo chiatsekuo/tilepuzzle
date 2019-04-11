@@ -11,6 +11,8 @@ public:
 	void swap(int x1, int y1, int x2, int y2);//moves tiles from two locations
 	int getx();
 	int gety();
+	int setx(int v);
+	int sety(int v);
 
 
 	int alltiles(visualtile ** t,int n);//fill the list with tile pointers &tiles[][]
@@ -24,14 +26,13 @@ public:
 	int aiinversion();
 	int aimanhattandistance();
 	char* toString();
-
+	
+	bool issame(board * other);
 	void initalizePosition();
 	void move();
 
 	int getwidth();
 	int getheight();
-
-	
 
 	visualtile tiles[boardheight][boardwidth];
 private:
@@ -63,6 +64,7 @@ class rowChangeGame : public board {
 
 public:
 	rowChangeGame(int x, int y);
+	rowChangeGame(rowChangeGame*from);
 
 	bool movetile(int x, int y, char dir);//should use bellow
 	bool moveup(int x, int y);//should check for empty

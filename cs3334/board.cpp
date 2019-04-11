@@ -62,6 +62,18 @@ int board::gety()
 	return y;
 }
 
+int board::setx(int v)
+{
+	x = v;
+	return 0;
+}
+
+int board::sety(int v)
+{
+	y = v;
+	return 0;
+}
+
 bool oneBlankGame::movetile(int x, int y, char dir)
 {
 	switch (dir) {
@@ -274,6 +286,19 @@ char * board::toString()
 	return arr;
 }
 
+bool board::issame(board * other)
+{
+	for (int x = 0; x < boardwidth; x++) {
+		for (int y = 0; y < boardheight; y++) {
+			if (tiles[x][y].getvalue() != other->tiles[x][y].getvalue()) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
 void board::initalizePosition()
 {
 	for (int i = 0; i < boardheight; i++) {
@@ -405,6 +430,11 @@ rowChangeGame::rowChangeGame(int x, int y):board(x, y)
 	tiles[boardwidth - 1][boardheight - 1] = visualtile(boardheight*boardwidth);
 	tiles[boardwidth - 1][boardheight - 1].setimage(temp);
 }
+rowChangeGame::rowChangeGame(rowChangeGame * from):board((board*)from)
+{
+
+}
+
 bool rowChangeGame::movetile(int x, int y, char dir)
 {
 	switch (dir) {
@@ -495,40 +525,32 @@ int rowChangeGame::numOfMoves()
 
 bool rowChangeGame::doMove(int i)
 {
-	this->setEmpty();
-	if (isInboard(empty + 1, emptx)) {
-		if (i == 0) {
-			return movetile(emptx, empty + 1, 'u');
-		}
-		else {
-			i--;
-		}
+	switch (i) {
+	case 0:
+		return movetile(0, 0, 'u');
+	case 1:
+		return movetile(0, 0, 'd');
+	case 2:
+		return movetile(0, 0, 'l');
+	case 3:
+		return movetile(0, 0, 'r');
+	case 4:
+		return movetile(1, 1, 'u');
+	case 5:
+		return movetile(1, 1, 'd');
+	case 6:
+		return movetile(1, 1, 'l');
+	case 7:
+		return movetile(1, 1, 'r');
+	case 8:
+		return movetile(2, 2, 'u');
+	case 9:
+		return movetile(2, 2, 'd');
+	case 10:
+		return movetile(2, 2, 'l');
+	case 11:
+		return movetile(2, 2, 'r');
 	}
-	if (isInboard(empty, emptx - 1)) {
-		if (i == 0) {
-			return movetile(emptx - 1, empty, 'r');
-		}
-		else {
-			i--;
-		}
-	}
-	if (isInboard(empty - 1, emptx)) {
-		if (i == 0) {
-			return movetile(emptx, empty - 1, 'd');
-		}
-		else {
-			i--;
-		}
-	}
-	if (isInboard(empty, emptx + 1)) {
-		if (i == 0) {
-			return movetile(emptx + 1, empty, 'l');
-		}
-		else {
-			i--;
-		}
-	}
-	return false;
 }
 
 void rowChangeGame::setEmpty()
