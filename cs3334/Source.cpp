@@ -63,8 +63,8 @@ int main() {
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_mouse_event_source());
 
-	//oneblankgame();
-	wraparoundgame();
+	oneblankgame();
+	//wraparoundgame();
 }
 
 void drawtile(int x, int y, int w, int h, int v)
