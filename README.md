@@ -11,7 +11,7 @@ the tiles row by row from a two-dimensional grid to a one-dimensional list. In t
 easier to solve for the inversions of a state of puzzle. The inversions of the puzzle is a way to
 represent how well the puzzle is solved.
 
-![image-20210819194415968](C:\Users\chiatsekuo\AppData\Roaming\Typora\typora-user-images\image-20210819194415968.png)
+![image-20210819194415968](./assets/fig_1.png)
 
 Fig.1 Transform the 2-dimensional grid into 1-dimensional array
 
