@@ -11,7 +11,7 @@ the tiles row by row from a two-dimensional grid to a one-dimensional list. In t
 easier to solve for the inversions of a state of puzzle. The inversions of the puzzle is a way to
 represent how well the puzzle is solved.
 
-![image-20210819194415968](./assets/fig_1.png)
+![image-20210819194415968](https://github.com/chiatsekuo/tilepuzzle/blob/master/assets/fig_1.PNG)
 
 Fig.1 Transform the 2-dimensional grid into 1-dimensional array
 
@@ -35,7 +35,7 @@ inversions does not change. Tiles can’t actually move past another tile when m
 horizontal moves. Only the empty tile and that target tile (this is the one clicked on) can be
 swapped and they won’t change the number of inversion as the empty tile is ignored.
 
-![image-20210819194724514](C:\Users\chiatsekuo\AppData\Roaming\Typora\typora-user-images\image-20210819194724514.png)
+![image-20210819194724514](https://github.com/chiatsekuo/tilepuzzle/blob/master/assets/fig_2.PNG)
 
 Fig.2 No change of inversions when swapping tiles horizontally
 
@@ -47,11 +47,11 @@ added. If both were less than the moving tile, then two inversions are added. An
 greater and the other is less, then the inversion remain the same. As a result, the polarity of
 the inversion in this puzzle can never change, because it always changes by two at a time.
 
-![image-20210819194752864](C:\Users\chiatsekuo\AppData\Roaming\Typora\typora-user-images\image-20210819194752864.png)
+![image-20210819194752864](https://github.com/chiatsekuo/tilepuzzle/blob/master/assets/fig_3.PNG)
 
 Fig.3 Since 5 and 6 are greater than 4, the inversions added 2, and become 2
 
-![image-20210819194804120](C:\Users\chiatsekuo\AppData\Roaming\Typora\typora-user-images\image-20210819194804120.png)
+![image-20210819194804120](https://github.com/chiatsekuo/tilepuzzle/blob/master/assets/fig_4.PNG)
 
 Fig.4 Since 2 and 3 are greater than 1, the inversions added 2, and become 4
 
@@ -71,11 +71,11 @@ row or column wrapping around the edge as if on a torus. The solvability of this
 tackled and proved in a similar way to the original puzzle mentioned above. We will look at
 the game of size 3 by 3 as an example.
 
-![image-20210819194844206](C:\Users\chiatsekuo\AppData\Roaming\Typora\typora-user-images\image-20210819194844206.png)
+![image-20210819194844206](https://github.com/chiatsekuo/tilepuzzle/blob/master/assets/fig_5.PNG)
 
 Fig.5 Unfold the torus into a flat sheet
 
-![image-20210819194855564](C:\Users\chiatsekuo\AppData\Roaming\Typora\typora-user-images\image-20210819194855564.png)
+![image-20210819194855564](https://github.com/chiatsekuo/tilepuzzle/blob/master/assets/fig_6.PNG)
 
 Fig.6 Solved state of the Wrap Around Board mode
 
@@ -85,7 +85,7 @@ edge of the board. This row rotation is similar to the vertical moves from the r
 because each tile move past two, meaning on the board with an odd width, the number of
 inversions changes is always even, and therefore the polarity does not change.
 
-![image-20210819194914143](C:\Users\chiatsekuo\AppData\Roaming\Typora\typora-user-images\image-20210819194914143.png)
+![image-20210819194914143](https://github.com/chiatsekuo/tilepuzzle/blob/master/assets/fig_7.PNG)
 
 Fig.7 One horizontal move on the Wrap Around Board mode
 
@@ -99,7 +99,7 @@ and also both moving tiles. This in 3 by 3 case that is always 6 giving an even 
 inversions or in general (height -1) * width of the board, so as long as the height is odd or the
 width is even the move will also maintain polarity.
 
-![image-20210819194933713](C:\Users\chiatsekuo\AppData\Roaming\Typora\typora-user-images\image-20210819194933713.png)
+![image-20210819194933713](https://github.com/chiatsekuo/tilepuzzle/blob/master/assets/fig_8.PNG)
 
 Fig.8 One vertical move on the Wrap Around Board mode
 
