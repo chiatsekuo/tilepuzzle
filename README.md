@@ -1,6 +1,6 @@
 # tilepuzzle - Sliding-block Puzzle and Permutation Inversions
 
-This is a CS3334 - Data Structures course project. It is completed by [Alex McVay](https://github.com/AlexanderLuasan), [Chia-Tse Kuo](https://github.com/chiatsekuo) , and [Andrew Park](https://github.com/psh320).
+This is a CS3334 - Data Structures course project. It was completed by [Alex McVay](https://github.com/AlexanderLuasan), [Chia-Tse Kuo](https://github.com/chiatsekuo) , and [Andrew Park](https://github.com/psh320).
 
 ## Introduction
 
