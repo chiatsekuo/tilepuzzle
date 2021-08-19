@@ -1,6 +1,6 @@
 # tilepuzzle - Sliding-block Puzzle and Permutation Inversions
 
-This is a CS3334 - Data Structures course project. It is completed by Alex McVay, Chia-Tse Kuo, and Andrew Park.
+This is a CS3334 - Data Structures course project. It is completed by [Alex McVay](https://github.com/AlexanderLuasan), [Chia-Tse Kuo](https://github.com/chiatsekuo) , and [Andrew Park](https://github.com/psh320).
 
 ## Introduction
 
@@ -10,7 +10,7 @@ find when the tile puzzle can reach any other state. To calculate the inversions
 the tiles row by row from a two-dimensional grid to a one-dimensional list. In this form, it is
 easier to solve for the inversions of a state of puzzle. The inversions of the puzzle is a way to
 represent how well the puzzle is solved.
-
+Cancel changes
 ![image-20210819194415968](https://github.com/chiatsekuo/tilepuzzle/blob/master/assets/fig_1.PNG)
 
 Fig.1 Transform the 2-dimensional grid into 1-dimensional array
